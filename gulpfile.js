@@ -34,7 +34,7 @@ function scripts() {
     sourcemaps: !isProd,
   })
     .pipe($.plumber())
-    .pipe($.babel())
+    // .pipe($.babel())
     .pipe(dest('.tmp/scripts', {
       sourcemaps: !isProd ? '.' : false,
     }))
