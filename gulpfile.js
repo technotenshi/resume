@@ -26,6 +26,7 @@ function styles() {
     .pipe(dest('.tmp/styles', {
       sourcemaps: !isProd,
     }))
+    .pipe($.if(isProd, dest('dist/styles')))
     .pipe(server.reload({stream: true}));
 };
 
@@ -38,6 +39,7 @@ function scripts() {
     .pipe(dest('.tmp/scripts', {
       sourcemaps: !isProd ? '.' : false,
     }))
+    .pipe($.if(isProd, dest('dist/scripts')))
     .pipe(server.reload({stream: true}));
 };
 
