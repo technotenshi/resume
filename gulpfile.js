@@ -1,11 +1,12 @@
 // generated on 2020-09-11 using generator-webapp 4.0.0-8
-const { src, dest, watch, series, parallel, lastRun } = require('gulp');
+const {src, dest, watch, series, parallel, lastRun} = require('gulp');
 const gulpLoadPlugins = require('gulp-load-plugins');
 const browserSync = require('browser-sync');
 const del = require('del');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
-const { argv } = require('yargs');
+const {argv} = require('yargs');
+const awspublish = require('gulp-awspublish');
 
 const $ = gulpLoadPlugins();
 const server = browserSync.create();
@@ -51,10 +52,12 @@ const lintBase = (files, options) => {
     .pipe($.eslint.format())
     .pipe($.if(!server.active, $.eslint.failAfterError()));
 }
+
 function lint() {
-  return lintBase('app/scripts/**/*.js', { fix: true })
+  return lintBase('app/scripts/**/*.js', {fix: true})
     .pipe(dest('app/scripts'));
 };
+
 function lintTest() {
   return lintBase('test/spec/**/*.js');
 };
@@ -78,7 +81,7 @@ function html() {
 }
 
 function images() {
-  return src('app/images/**/*', { since: lastRun(images) })
+  return src('app/images/**/*', {since: lastRun(images)})
     .pipe($.imagemin())
     .pipe(dest('dist/images'));
 };
@@ -173,6 +176,40 @@ function startDistServer() {
   });
 }
 
+function publish() {
+  const publisher = awspublish.create(
+    {
+      region: 'your-region-id',
+      params: {
+        Bucket: '...'
+      }
+    },
+    {
+      cacheFileName: 'your-cache-location'
+    }
+  );
+
+  const headers = {
+    'Cache-Control': 'max-age=315360000, no-transform, public'
+    // ...
+  };
+
+  return src('dist/**/*')
+    // gzip, Set Content-Encoding headers and add .gz extension
+    .pipe(awspublish.gzip({ext: '.gz'}))
+
+    // publisher will add Content-Length, Content-Type and headers specified above
+    // If not specified it will set x-amz-acl to public-read by default
+    .pipe(publisher.publish(headers))
+
+    // create a cache file to speed up consecutive uploads
+    .pipe(publisher.cache())
+
+    // print upload updates to console
+    .pipe(awspublish.reporter())
+
+}
+
 let serve;
 if (isDev) {
   serve = series(clean, parallel(styles, scripts, fonts), startAppServer);
@@ -182,6 +219,9 @@ if (isDev) {
   serve = series(build, startDistServer);
 }
 
+let publisher = series(build, publish);
+
 exports.serve = serve;
 exports.build = build;
+exports.publish = publisher;
 exports.default = build;
