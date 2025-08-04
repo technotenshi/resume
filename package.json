@@ -17,7 +17,7 @@
     "gulp-awspublish": "^4.1.2",
     "gulp-babel": "^8.0.0",
     "gulp-cli": "^2.2.0",
-    "gulp-eslint": "^5.0.0",
+    "gulp-eslint": "^6.0.0",
     "gulp-htmlmin": "^5.0.1",
     "gulp-if": "^3.0.0",
     "gulp-imagemin": "^6.0.0",
