@@ -14,7 +14,7 @@
     "cssnano": "^4.1.10",
     "del": "^8.0.0",
     "gulp": "^4.0.2",
-    "gulp-awspublish": "^4.1.2",
+    "gulp-awspublish": "^8.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-cli": "^2.2.0",
     "gulp-eslint": "^6.0.0",
