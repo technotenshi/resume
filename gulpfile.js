@@ -82,13 +82,13 @@ function html() {
 
 async function images() {
   const {default: imagemin} = await import('gulp-imagemin');
-  return src('app/images/**/*', {since: lastRun(images)})
+  return src('app/images/**/*', {since: lastRun(images), encoding: false})
     .pipe(imagemin())
     .pipe(dest('dist/images'));
 };
 
 function fonts() {
-  return src('app/fonts/**/*.{eot,svg,ttf,woff,woff2}')
+  return src('app/fonts/**/*.{eot,svg,ttf,woff,woff2}', {encoding: false})
     .pipe($.if(!isProd, dest('.tmp/fonts'), dest('dist/fonts')));
 };
 
@@ -97,7 +97,8 @@ function extras() {
     'app/*',
     '!app/*.html'
   ], {
-    dot: true
+    dot: true,
+    encoding: false
   }).pipe(dest('dist'));
 };
 

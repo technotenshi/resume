@@ -5,4 +5,11 @@ services:
     volumes:
       - .:/opt/app
     working_dir: /opt/app
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./dist:/usr/share/nginx/html:ro
+    ports:
+      - "8030:80"
+    restart: unless-stopped
     
