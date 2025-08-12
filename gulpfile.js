@@ -2,7 +2,7 @@
 const {src, dest, watch, series, parallel, lastRun} = require('gulp');
 const gulpLoadPlugins = require('gulp-load-plugins');
 const browserSync = require('browser-sync');
-const del = require('del');
+const {deleteAsync} = require('del');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 const yargs = require('yargs/yargs');
@@ -80,9 +80,10 @@ function html() {
     .pipe(dest('dist'));
 }
 
-function images() {
+async function images() {
+  const {default: imagemin} = await import('gulp-imagemin');
   return src('app/images/**/*', {since: lastRun(images)})
-    .pipe($.imagemin())
+    .pipe(imagemin())
     .pipe(dest('dist/images'));
 };
 
@@ -101,12 +102,13 @@ function extras() {
 };
 
 function clean() {
-  return del(['.tmp', 'dist'])
+  return deleteAsync(['.tmp', 'dist']);
 }
 
-function measureSize() {
+async function measureSize() {
+  const {default: size} = await import('gulp-size');
   return src('dist/**/*')
-    .pipe($.size({title: 'build', gzip: true}));
+    .pipe(size({title: 'build', gzip: true}));
 }
 
 const build = series(
