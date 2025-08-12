@@ -1,0 +1,8 @@
+
+services:
+  app:
+    image: node:20
+    volumes:
+      - .:/opt/app
+    working_dir: /opt/app
+    
