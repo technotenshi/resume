@@ -18,6 +18,32 @@ Optional containerized workflow:
 docker compose run --rm app bash -lc "yarn install && yarn start"
 ```
 
+## Quick start inside Docker
+Run commands inside the provided container for a consistent environment.
+
+```bash
+# Install dependencies
+docker compose run -it --rm app bash -lc "yarn install"
+
+# Dev server (exposes port 9000)
+docker compose run -it --rm -p 9000:9000 app bash -lc "yarn start"
+
+# Dev server on a custom port (example: 9001)
+docker compose run -it --rm -p 9001:9001 app bash -lc "yarn start --port 9001"
+
+# Production build
+docker compose run -it --rm app bash -lc "yarn build"
+
+# Preview built site (serves dist/ on 9000)
+docker compose run -it --rm -p 9000:9000 app bash -lc "yarn serve:dist"
+
+# Browser test harness server (Mocha/Chai)
+docker compose run -it --rm -p 9000:9000 app bash -lc "yarn serve:test"
+
+# List Gulp tasks
+docker compose run -it --rm app bash -lc "yarn tasks"
+```
+
 ## Install
 ```bash
 yarn install
@@ -30,6 +56,9 @@ yarn start
 
 # Build for production (outputs to dist/)
 yarn build
+
+# Build inside Docker container (recommended for verifying builds)
+docker compose run -it --rm app bash -lc "yarn build"
 
 # Preview built site (serves dist/)
 yarn serve:dist

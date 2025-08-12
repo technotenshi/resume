@@ -16,6 +16,8 @@ This is a static site (Mobirise-generated HTML/CSS/JS) built and served with Gul
 ## Commands you’ll actually use
 - Dev server with live reload: `npm start` (equivalent to `gulp serve` with `NODE_ENV` unset).
 - Production build: `npm run build` (sets `NODE_ENV=production` and runs default gulp build).
+- Build inside Docker (use this to validate builds consistently):
+- `docker compose run -it --rm app bash -lc "yarn build"`
 - Preview built site: `npm run serve:dist` (serves `dist/`).
 - Test harness server: `npm run serve:test` (serves `test/` with routes to `.tmp/scripts`).
 - List available Gulp tasks: `npm run tasks`.

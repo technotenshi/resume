@@ -2,6 +2,32 @@
 
 This repo is a static site (Mobirise-generated HTML/CSS/JS) built and served with Gulp + BrowserSync. There’s no framework or bundler; assets are plain files referenced by HTML. Prefer small, file-based edits that respect the existing structure.
 
+## Quick start inside Docker
+Run everything inside the provided container to ensure a consistent environment.
+
+```bash
+# Install dependencies
+docker compose run -it --rm app bash -lc "yarn install"
+
+# Dev server (default port 9000)
+docker compose run -it --rm -p 9000:9000 app bash -lc "yarn start"
+
+# Dev server on custom port (example: 9001)
+docker compose run -it --rm -p 9001:9001 app bash -lc "yarn start --port 9001"
+
+# Production build
+docker compose run -it --rm app bash -lc "yarn build"
+
+# Preview built site (serves dist/ on 9000)
+docker compose run -it --rm -p 9000:9000 app bash -lc "yarn serve:dist"
+
+# Browser test harness server
+docker compose run -it --rm -p 9000:9000 app bash -lc "yarn serve:test"
+
+# List available Gulp tasks
+docker compose run -it --rm app bash -lc "yarn tasks"
+```
+
 ## Architecture at a glance
 - Source: `app/`
   - HTML pages in `app/` (e.g., `index.html`, `confirmation.html`)
@@ -14,14 +40,16 @@ This repo is a static site (Mobirise-generated HTML/CSS/JS) built and served wit
 
 ## Core workflows
 - Dev server (live reload):
-  - `npm start` (equivalent to `gulp serve` with `NODE_ENV` unset)
+  - `yarn start` (equivalent to `gulp serve` with `NODE_ENV` unset)
 - Build (minify + optimize to `dist/`):
-  - `npm run build` (sets `NODE_ENV=production` and runs Gulp default)
+  - `yarn build` (sets `NODE_ENV=production` and runs Gulp default)
+- Build inside Docker container (recommended for verifying builds):
+  - `docker compose run -it --rm app bash -lc "yarn build"`
 - Preview built assets:
-  - `npm run serve:dist`
+  - `yarn serve:dist`
 - Test harness server (browser-based Mocha/Chai):
-  - `npm run serve:test` (serves `test/` with routes to `.tmp/scripts`)
-- List Gulp tasks: `npm run tasks`
+  - `yarn serve:test` (serves `test/` with routes to `.tmp/scripts`)
+- List Gulp tasks: `yarn tasks`
 
 ## Testing (browser, not Node)
 - Entry: `test/index.html` (Mocha TDD + Chai globals)
@@ -40,11 +68,11 @@ This repo is a static site (Mobirise-generated HTML/CSS/JS) built and served wit
 - Add a script:
   1) Create `app/scripts/foo.js`
   2) Reference it in a page, e.g., `app/index.html` → `<script src="scripts/foo.js"></script>`
-  3) Dev run: `npm start` (auto-copies to `.tmp/scripts`)
+  3) Dev run: `yarn start` (auto-copies to `.tmp/scripts`)
 - Add a test for it:
   1) In `test/index.html`, add `<script src="/scripts/foo.js"></script>`
   2) Create `test/spec/foo.test.js` with Mocha TDD `suite/test`
-  3) Run `npm run serve:test` and open the served URL
+  3) Run `yarn serve:test` and open the served URL
 - Add a new page: duplicate `app/confirmation.html` or `app/index.html`; keep stylesheet/script paths relative to `app/`
 
  
