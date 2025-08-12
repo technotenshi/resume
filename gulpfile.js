@@ -2,11 +2,11 @@
 const {src, dest, watch, series, parallel, lastRun} = require('gulp');
 const gulpLoadPlugins = require('gulp-load-plugins');
 const browserSync = require('browser-sync');
-const del = require('del');
+const {deleteAsync} = require('del');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
-const {argv} = require('yargs');
-const awspublish = require('gulp-awspublish');
+const yargs = require('yargs/yargs');
+const argv = yargs(process.argv.slice(2)).argv;
 
 const $ = gulpLoadPlugins();
 const server = browserSync.create();
@@ -80,14 +80,15 @@ function html() {
     .pipe(dest('dist'));
 }
 
-function images() {
-  return src('app/images/**/*', {since: lastRun(images)})
-    .pipe($.imagemin())
+async function images() {
+  const {default: imagemin} = await import('gulp-imagemin');
+  return src('app/images/**/*', {since: lastRun(images), encoding: false})
+    .pipe(imagemin())
     .pipe(dest('dist/images'));
 };
 
 function fonts() {
-  return src('app/fonts/**/*.{eot,svg,ttf,woff,woff2}')
+  return src('app/fonts/**/*.{eot,svg,ttf,woff,woff2}', {encoding: false})
     .pipe($.if(!isProd, dest('.tmp/fonts'), dest('dist/fonts')));
 };
 
@@ -96,17 +97,19 @@ function extras() {
     'app/*',
     '!app/*.html'
   ], {
-    dot: true
+    dot: true,
+    encoding: false
   }).pipe(dest('dist'));
 };
 
 function clean() {
-  return del(['.tmp', 'dist'])
+  return deleteAsync(['.tmp', 'dist']);
 }
 
-function measureSize() {
+async function measureSize() {
+  const {default: size} = await import('gulp-size');
   return src('dist/**/*')
-    .pipe($.size({title: 'build', gzip: true}));
+    .pipe(size({title: 'build', gzip: true}));
 }
 
 const build = series(
@@ -176,39 +179,6 @@ function startDistServer() {
   });
 }
 
-function publish() {
-  const publisher = awspublish.create(
-    {
-      region: 'your-region-id',
-      params: {
-        Bucket: '...'
-      }
-    },
-    {
-      cacheFileName: 'your-cache-location'
-    }
-  );
-
-  const headers = {
-    'Cache-Control': 'max-age=315360000, no-transform, public'
-    // ...
-  };
-
-  return src('dist/**/*')
-    // gzip, Set Content-Encoding headers and add .gz extension
-    .pipe(awspublish.gzip({ext: '.gz'}))
-
-    // publisher will add Content-Length, Content-Type and headers specified above
-    // If not specified it will set x-amz-acl to public-read by default
-    .pipe(publisher.publish(headers))
-
-    // create a cache file to speed up consecutive uploads
-    .pipe(publisher.cache())
-
-    // print upload updates to console
-    .pipe(awspublish.reporter())
-
-}
 
 let serve;
 if (isDev) {
@@ -219,9 +189,6 @@ if (isDev) {
   serve = series(build, startDistServer);
 }
 
-let publisher = series(build, publish);
-
 exports.serve = serve;
 exports.build = build;
-exports.publish = publisher;
 exports.default = build;
