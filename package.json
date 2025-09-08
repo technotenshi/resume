@@ -42,6 +42,9 @@
     "last 2 versions",
     "Firefox ESR"
   ],
+  "resolutions": {
+    "ansi-regex": "^4.1.1"
+  },
   "eslintConfig": {
     "parserOptions": {
       "sourceType": "module"
