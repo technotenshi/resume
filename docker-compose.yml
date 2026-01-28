@@ -1,7 +1,7 @@
 
 services:
   app:
-    image: node:20
+    image: node:24
     volumes:
       - .:/opt/app
     working_dir: /opt/app
