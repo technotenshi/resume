@@ -17,6 +17,11 @@ const isProd = process.env.NODE_ENV === 'production';
 const isTest = process.env.NODE_ENV === 'test';
 const isDev = !isProd && !isTest;
 
+function onStreamError(err) {
+  console.error(err.toString());
+  this.emit('end');
+}
+
 function styles() {
   return src('app/styles/*.css', {
     sourcemaps: !isProd,
@@ -35,7 +40,7 @@ function scripts() {
   return src('app/scripts/**/*.js', {
     sourcemaps: !isProd,
   })
-    .pipe($.plumber())
+    .on('error', onStreamError)
     // .pipe($.babel())
     .pipe(dest('.tmp/scripts', {
       sourcemaps: !isProd ? '.' : false,

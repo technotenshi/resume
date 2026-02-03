@@ -5,6 +5,14 @@ services:
     volumes:
       - .:/opt/app
     working_dir: /opt/app
+  dev:
+    image: node:20
+    volumes:
+      - .:/opt/app
+    working_dir: /opt/app
+    command: bash -lc "yarn start"
+    ports:
+      - "9000:9000"
   nginx:
     image: nginx:alpine
     volumes:
