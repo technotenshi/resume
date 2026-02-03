@@ -21,7 +21,6 @@
     "gulp-if": "^3.0.0",
     "gulp-imagemin": "^9.2.0",
     "gulp-load-plugins": "^2.0.8",
-    "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^10.0.0",
     "gulp-size": "^5.0.0",
     "gulp-uglify": "^3.0.2",
@@ -42,9 +41,6 @@
     "last 2 versions",
     "Firefox ESR"
   ],
-  "resolutions": {
-    "ansi-regex": "^6.0.0"
-  },
   "eslintConfig": {
     "parserOptions": {
       "sourceType": "module"
