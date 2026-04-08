@@ -4,6 +4,22 @@ This file provides guidance to Claude Code when working in this repository.
 
 ## Commands
 
+Use `make <target>` (wraps docker compose):
+
+```bash
+make install      # install deps
+make dev          # dev server on port 3000
+make build        # generate static site to .output/public
+make preview      # build + serve .output/public on port 3000
+make typecheck
+make test-unit
+make test-e2e
+make test
+make ps / logs / stop / down
+```
+
+Raw docker compose equivalents also work if needed:
+
 ```bash
 docker compose run --rm app yarn install
 docker compose up dev
@@ -18,7 +34,7 @@ docker compose run --rm app yarn test
 Static server:
 
 ```bash
-docker compose up nginx
+make nginx        # serves .output/public via nginx on port 8030
 ```
 
 ## Stack
@@ -37,6 +53,10 @@ docker compose up nginx
 - `docker compose up preview` serves the generated `.output/public` directory directly for local verification
 - `public/_redirects` preserves `/index.html` and `/confirmation.html` for static hosting
 - `assets/images/` contains imported image assets referenced directly from TypeScript data
+- `public/legacy/` holds original Mobirise assets: `styles/`, `scripts/`, `fonts/`, `images/`
+- `plugins/legacy-runtime.client.ts` loads Mobirise JS (jQuery, Bootstrap, etc.) sequentially client-side after Nuxt is ready
+- `OgImage/Resume.satori.vue` is the Satori-based OG image template
+- `utils/site.ts` resolves `NUXT_SITE_URL` / `NUXT_PUBLIC_SITE_URL` for canonical URLs
 
 ## Testing
 
@@ -48,6 +68,8 @@ docker compose up nginx
 
 - Set `NUXT_SITE_URL` in CI and hosting so canonical URLs, OG images, the sitemap, and `robots.txt` use the correct public domain. `NUXT_PUBLIC_SITE_URL` is still supported as a fallback.
 - Cloudflare Pages should publish `.output/public`
+- Set `NUXT_LINK_CHECKER_REMOTE=1` to enable remote HTTP(S) link checks during build (off by default)
+- Default canonical domain is `https://ibarra.dev`
 
 ## Git workflow
 
