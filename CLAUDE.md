@@ -1,94 +1,56 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code when working in this repository.
 
 ## Commands
 
 ```bash
-yarn start          # dev server with live reload (port 9000)
-yarn build          # production build → dist/
-yarn serve:dist     # preview built site from dist/
-yarn serve:test     # browser test harness server
-yarn tasks          # list all available Gulp tasks
-yarn install --frozen-lockfile  # verify lockfile is consistent with package.json
+yarn dev
+yarn build
+yarn preview
+yarn typecheck
+yarn test:unit
+yarn test:e2e
+yarn test
 ```
 
-Docker is recommended for consistent builds:
+Docker entrypoints:
 
 ```bash
-docker compose run -it --rm app bash -lc "yarn install"
-docker compose run -it --rm -p 9000:9000 app bash -lc "yarn start"
-docker compose run -it --rm app bash -lc "yarn build"
-docker compose run -it --rm -p 9000:9000 app bash -lc "yarn serve:dist"
-docker compose run -it --rm -p 9000:9000 app bash -lc "yarn serve:test"
+docker compose up dev
+docker compose up preview
+docker compose up nginx
 ```
 
-Override the default port 9000 with `--port` (e.g. `yarn start --port 9001`).
+## Stack
 
-## Package Manager
-
-Yarn v4 (`packageManager: yarn@4.13.0` in `package.json`). Uses `nodeLinker: node-modules` — required for `gulp-load-plugins` dynamic requires; PnP is not compatible. The Yarn binary is committed at `.yarn/releases/yarn-4.13.0.cjs` for reproducible installs without Corepack.
-
-## Git Workflow
-
-**Never push directly to main** — all changes must go through a PR. Main has branch protection enforced (including for admins).
-- Linear history required: rebase branches before merging, never merge commits
-- Keep branches up to date: `git fetch origin main && git rebase origin/main && git push --force-with-lease`
-- Re-run a failed CI job: `gh api repos/technotenshi/resume/actions/runs/<RUN_ID>/rerun --method POST`
-- Fetch a code scanning alert: `gh api repos/technotenshi/resume/code-scanning/alerts/<N>`
-
-## GitHub Actions
-
-Two workflows: `claude.yml` (mention-triggered) and `claude-code-review.yml` (PR-triggered). Security patterns to follow when editing:
-- Pin action refs to commit SHAs, not mutable tags. Get SHA: `gh api repos/owner/repo/git/ref/tags/vN --jq '.object.sha'` (annotated tags need a second lookup: `gh api repos/owner/repo/git/tags/<sha> --jq '.object.sha'`)
-- `pull_request` trigger + `id-token: write` requires fork protection: `if: github.event.pull_request.head.repo.full_name == github.repository`
-- Build-only jobs must declare `permissions: contents: read` (no write access needed)
-- The `claude-code-review` action rejects itself when the workflow file differs from main — `paths-ignore: ['.github/workflows/**']` prevents this for dependency bump PRs
+- Nuxt 4 with Vue 3
+- Static prerendering with `nuxt generate`
+- Typed content in `data/resume.ts`
+- Global styling in `assets/css/main.css`
+- Static host deployment from `.output/public`
 
 ## Architecture
 
-This is a static site (Mobirise-generated HTML/CSS/JS) with no framework or module bundler.
-
-**Directory layout:**
-- `app/` — source: HTML pages in root, `styles/`, `scripts/`, `images/`, `fonts/`
-- `.tmp/` — dev build output (served by BrowserSync, not committed)
-- `dist/` — production build output (minified + optimized, not committed)
-
-**Gulp pipeline** (`gulpfile.js`):
-- `styles` — PostCSS + autoprefixer; sourcemaps in dev only
-- `scripts` — copies JS to `.tmp/scripts` (and `dist/scripts` in prod); Babel is **configured but disabled** (pipe is commented out)
-- `html` — `gulp-useref` + `htmlmin` + `cssnano` + `uglify` into `dist/`
-- `images` — imagemin into `dist/images` (only runs during `build`, not `serve`)
-- `fonts`, `extras` — copy-through tasks
-- `serve` — BrowserSync; behavior controlled by `NODE_ENV`: unset = dev, `test` = test harness, `production` = serves `dist/`
-
-**Build pipeline:**
-```
-clean → parallel(lint, parallel(styles, scripts) → html, images, fonts, extras) → measureSize
-```
+- `pages/index.vue` and `pages/confirmation.vue` are the only public pages
+- `components/` contains reusable section UI such as banners and the testimonial carousel
+- `server/routes/robots.txt.ts` and `server/routes/sitemap.xml.ts` are prerendered during `yarn build`
+- `public/_redirects` preserves `/index.html` and `/confirmation.html` for static hosting
+- `assets/images/` contains imported image assets referenced directly from TypeScript data
 
 ## Testing
 
-Tests run in the browser via Mocha TDD + Chai — there is no headless/CI runner.
+- Unit tests live in `tests/unit/`
+- Playwright smoke tests live in `tests/e2e/`
+- `yarn test:e2e` builds the site and runs Playwright against `yarn preview`
 
-- Entry point: `test/index.html`
-- Specs: `test/spec/**/*.js`
-- To test app code, reference the script in `test/index.html` (files under `app/scripts/` are served at `/scripts/...` during `serve:test`)
-- Run `yarn serve:test` and open the served URL in a browser
+## Deployment notes
 
-## Conventions
+- Set `NUXT_PUBLIC_SITE_URL` in CI and hosting so canonical URLs, the sitemap, and `robots.txt` use the correct public domain
+- Cloudflare Pages should publish `.output/public`
 
-- **No bundler** — add scripts via `<script src="scripts/foo.js"></script>` in HTML
-- **Babel is opt-in** — uncomment `$.babel()` in `scripts()` in `gulpfile.js` to enable transpilation
-- **ESLint** config is in `package.json` (browser + node env, single quotes enforced); the `lint` task auto-fixes `app/scripts/`
-- **CSS** — add new files under `app/styles/` and reference them in HTML; autoprefixer runs automatically
+## Git workflow
 
-## Gotchas
-
-- `gulp-useref` concatenation requires HTML build blocks; current pages link assets directly — add blocks only if you need concatenation
-- Renaming top-level folders under `app/` (e.g. `styles/`, `scripts/`) requires updating the glob patterns in `gulpfile.js`
-- Image optimization only runs during `build`; dev serves images directly from `app/images/`
-- If enabling Babel, also ensure `.babelrc` (`@babel/preset-env`) matches your target browsers
-- Port conflicts: use `--port` flag to pick an alternative port
-- Both Renovate (`renovate/` branches) and Dependabot (`dependabot/` branches) run; they sometimes open duplicate PRs for the same dep — prefer the PR that also updates `package.json` over lockfile-only updates
-- Merging multiple dependency PRs causes `yarn.lock` conflicts: resolve with `git checkout --theirs yarn.lock && yarn install`, then `git add yarn.lock`
+- Do not push directly to `main`
+- Keep action pins intact in workflow files
+- Prefer updating docs and tests alongside structural app changes so the repo never documents the old stack

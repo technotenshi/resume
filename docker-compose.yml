@@ -10,14 +10,21 @@ services:
     volumes:
       - .:/opt/app
     working_dir: /opt/app
-    command: bash -lc "yarn start"
+    command: bash -lc "yarn install && yarn dev"
     ports:
-      - "9000:9000"
+      - "3000:3000"
+  preview:
+    image: node:24
+    volumes:
+      - .:/opt/app
+    working_dir: /opt/app
+    command: bash -lc "yarn install && yarn build && yarn preview"
+    ports:
+      - "3000:3000"
   nginx:
     image: nginx:alpine
     volumes:
-      - ./dist:/usr/share/nginx/html:ro
+      - ./.output/public:/usr/share/nginx/html:ro
     ports:
       - "8030:80"
     restart: unless-stopped
-    
