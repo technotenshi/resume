@@ -9,7 +9,10 @@ on:
 jobs:
   claude-review:
     # Only run on PRs from the same repo to prevent forked PRs from accessing id-token
-    if: github.event.pull_request.head.repo.full_name == github.repository
+    # Skip draft PRs — review is only useful on ready-for-review code
+    if: |
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      !github.event.pull_request.draft
 
     runs-on: ubuntu-latest
     permissions:
@@ -28,6 +31,7 @@ jobs:
         id: claude-review
         uses: anthropics/claude-code-action@26ddc358fe3befff50c5ec2f80304c90c763f6f8 # v1
         with:
+          allowed_bots: 'renovate,dependabot'
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           plugin_marketplaces: 'https://github.com/anthropics/claude-code.git'
           plugins: 'code-review@claude-code-plugins'
