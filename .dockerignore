@@ -11,6 +11,7 @@ test-results
 *.log
 .DS_Store
 .remember
+.claude
 .env
 .env.local
 .env.*
