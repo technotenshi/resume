@@ -1,30 +1,21 @@
-# dependencies
-node_modules
-bower_components
+# Dependencies
+node_modules/
 
-# yarn 4
-.yarn/cache
+# Yarn 4
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
 .yarn/install-state.gz
 
-# compiled output
-/dist
-/.tmp
-
-# yarn 4
-.yarn/cache
-.yarn/install-state.gz
-
-# System Files
-.DS_Store
-Thumbs.db
-
-# Windows
-desktop.ini
-
-# Editors
-.vscode/
-*.swp
-*~
+# Nuxt / generated output
+.nuxt/
+.output/
+.data/
+dist/
+.tmp/
+coverage/
+playwright-report/
+test-results/
 
 # Logs
 *.log
@@ -35,8 +26,16 @@ yarn-error.log*
 # Environment
 .env
 .env.local
+.env.*
+
+# Editor / OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*~
 
 # Claude Code
 .remember/
-
-/.idea

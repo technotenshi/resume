@@ -1,23 +1,39 @@
+x-app-base: &app-base
+  build:
+    context: .
+    dockerfile: Dockerfile
+  image: resume-node24
+  environment:
+    YARN_CACHE_FOLDER: /yarn-cache
+  volumes:
+    - .:/opt/app
+    - node_modules:/opt/app/node_modules
+    - yarn_cache:/yarn-cache
+    - playwright_cache:/root/.cache/ms-playwright
+  working_dir: /opt/app
 
 services:
   app:
-    image: node:24
-    volumes:
-      - .:/opt/app
-    working_dir: /opt/app
+    <<: *app-base
   dev:
-    image: node:24
-    volumes:
-      - .:/opt/app
-    working_dir: /opt/app
-    command: bash -lc "yarn start"
+    <<: *app-base
+    command: bash -lc "yarn dev --host 0.0.0.0"
     ports:
-      - "9000:9000"
+      - "3000:3000"
+  preview:
+    <<: *app-base
+    command: bash -lc "yarn build && yarn preview"
+    ports:
+      - "3000:3000"
   nginx:
     image: nginx:alpine
     volumes:
-      - ./dist:/usr/share/nginx/html:ro
+      - ./.output/public:/usr/share/nginx/html:ro
     ports:
       - "8030:80"
     restart: unless-stopped
-    
+
+volumes:
+  node_modules:
+  yarn_cache:
+  playwright_cache:
