@@ -76,3 +76,11 @@ make nginx        # serves .output/public via nginx on port 8030
 - Do not push directly to `main`
 - Keep action pins intact in workflow files
 - Prefer updating docs and tests alongside structural app changes so the repo never documents the old stack
+- When merging multiple dependency PRs, resolve `yarn.lock` conflicts with `git checkout --theirs yarn.lock && docker compose run --rm app yarn install` — never merge it manually
+
+## Claude Code automations
+
+- `/verify-build` — typecheck + unit tests + build in sequence
+- `/merge-dep-prs` — batch-merge dependency PRs, handles yarn.lock regeneration
+- `/update-resume` — guided edits to `data/resume.ts` with post-edit validation
+- `/make-task <target>` — run any Makefile target
