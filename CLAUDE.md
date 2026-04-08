@@ -29,11 +29,21 @@ Override the default port 9000 with `--port` (e.g. `yarn start --port 9001`).
 
 Yarn v4 (`packageManager: yarn@4.13.0` in `package.json`). Uses `nodeLinker: node-modules` — required for `gulp-load-plugins` dynamic requires; PnP is not compatible. The Yarn binary is committed at `.yarn/releases/yarn-4.13.0.cjs` for reproducible installs without Corepack.
 
+## Git Workflow
+
+**Never push directly to main** — all changes must go through a PR. Main has branch protection enforced (including for admins).
+- Linear history required: rebase branches before merging, never merge commits
+- Keep branches up to date: `git fetch origin main && git rebase origin/main && git push --force-with-lease`
+- Re-run a failed CI job: `gh api repos/technotenshi/resume/actions/runs/<RUN_ID>/rerun --method POST`
+- Fetch a code scanning alert: `gh api repos/technotenshi/resume/code-scanning/alerts/<N>`
+
 ## GitHub Actions
 
 Two workflows: `claude.yml` (mention-triggered) and `claude-code-review.yml` (PR-triggered). Security patterns to follow when editing:
 - Pin action refs to commit SHAs, not mutable tags. Get SHA: `gh api repos/owner/repo/git/ref/tags/vN --jq '.object.sha'` (annotated tags need a second lookup: `gh api repos/owner/repo/git/tags/<sha> --jq '.object.sha'`)
 - `pull_request` trigger + `id-token: write` requires fork protection: `if: github.event.pull_request.head.repo.full_name == github.repository`
+- Build-only jobs must declare `permissions: contents: read` (no write access needed)
+- The `claude-code-review` action rejects itself when the workflow file differs from main — `paths-ignore: ['.github/workflows/**']` prevents this for dependency bump PRs
 
 ## Architecture
 
