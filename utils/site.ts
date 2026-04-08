@@ -1,6 +1,10 @@
 export function normalizeSiteUrl(siteUrl?: string) {
-  const fallback = 'https://example.com'
+  const fallback = 'https://ibarra.dev'
   return (siteUrl || fallback).replace(/\/+$/, '')
+}
+
+export function resolveSiteUrl(env: NodeJS.ProcessEnv = process.env) {
+  return normalizeSiteUrl(env.NUXT_SITE_URL || env.NUXT_PUBLIC_SITE_URL)
 }
 
 export function buildAbsoluteUrl(siteUrl: string, path = '/') {

@@ -1,30 +1,17 @@
 <script setup lang="ts">
 import { resumeData } from '~/data/resume'
-import { buildAbsoluteUrl, normalizeSiteUrl } from '~/utils/site'
-
-const runtimeConfig = useRuntimeConfig()
-const siteUrl = normalizeSiteUrl(runtimeConfig.public.siteUrl)
-const canonicalUrl = buildAbsoluteUrl(siteUrl, '/')
-const ogImageUrl = buildAbsoluteUrl(siteUrl, resumeData.profile.heroBackground)
 
 useSeoMeta({
   title: resumeData.profile.title,
   description: resumeData.profile.summary,
-  ogTitle: resumeData.profile.title,
-  ogDescription: resumeData.profile.summary,
-  ogUrl: canonicalUrl,
-  ogImage: ogImageUrl,
-  ogType: 'website',
-  twitterCard: 'summary_large_image',
-  twitterTitle: resumeData.profile.title,
-  twitterDescription: resumeData.profile.summary,
-  twitterImage: ogImageUrl,
+  ogType: 'profile',
 })
 
-useHead({
-  link: [
-    { rel: 'canonical', href: canonicalUrl },
-  ],
+defineOgImage('Resume', {
+  eyebrow: resumeData.profile.location,
+  title: resumeData.profile.name,
+  subtitle: resumeData.profile.jobTitle,
+  description: resumeData.profile.summary,
 })
 </script>
 

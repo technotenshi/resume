@@ -35,6 +35,7 @@ export const resumeData = {
     name: 'Angel Ibarra',
     location: 'Seattle Greater Area, USA',
     title: 'Angel Ibarra - Web Developer for hire',
+    jobTitle: 'Web Application Developer',
     summary:
       'Web application developer for 20 years. Amazed and involved in distributed systems development. Software development processes and best practices evangelist. Cryptography and information security fan.',
     heroBackground: '/legacy/images/mbr-1920x1246.jpg',

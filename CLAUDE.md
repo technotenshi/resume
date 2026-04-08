@@ -5,20 +5,19 @@ This file provides guidance to Claude Code when working in this repository.
 ## Commands
 
 ```bash
-yarn dev
-yarn build
-yarn preview
-yarn typecheck
-yarn test:unit
-yarn test:e2e
-yarn test
+docker compose run --rm app yarn install
+docker compose up dev
+docker compose run --rm app yarn build
+docker compose up preview
+docker compose run --rm app yarn typecheck
+docker compose run --rm app yarn test:unit
+docker compose run --rm app yarn test:e2e
+docker compose run --rm app yarn test
 ```
 
-Docker entrypoints:
+Static server:
 
 ```bash
-docker compose up dev
-docker compose up preview
 docker compose up nginx
 ```
 
@@ -34,7 +33,8 @@ docker compose up nginx
 
 - `pages/index.vue` and `pages/confirmation.vue` are the only public pages
 - `components/` contains reusable section UI such as banners and the testimonial carousel
-- `server/routes/robots.txt.ts` and `server/routes/sitemap.xml.ts` are prerendered during `yarn build`
+- `@nuxtjs/seo` generates `robots.txt`, `sitemap.xml`, Schema.org, OG images, and default canonical metadata during `docker compose run --rm app yarn build`
+- `docker compose up preview` serves the generated `.output/public` directory directly for local verification
 - `public/_redirects` preserves `/index.html` and `/confirmation.html` for static hosting
 - `assets/images/` contains imported image assets referenced directly from TypeScript data
 
@@ -42,11 +42,11 @@ docker compose up nginx
 
 - Unit tests live in `tests/unit/`
 - Playwright smoke tests live in `tests/e2e/`
-- `yarn test:e2e` builds the site and runs Playwright against `yarn preview`
+- `docker compose run --rm app yarn test:e2e` builds the site and runs Playwright against the containerized preview server
 
 ## Deployment notes
 
-- Set `NUXT_PUBLIC_SITE_URL` in CI and hosting so canonical URLs, the sitemap, and `robots.txt` use the correct public domain
+- Set `NUXT_SITE_URL` in CI and hosting so canonical URLs, OG images, the sitemap, and `robots.txt` use the correct public domain. `NUXT_PUBLIC_SITE_URL` is still supported as a fallback.
 - Cloudflare Pages should publish `.output/public`
 
 ## Git workflow

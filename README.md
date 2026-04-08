@@ -1,63 +1,60 @@
 # Resume Site — Nuxt 4 Static Build
 
-This repository now ships a typed, component-based resume site built with Nuxt 4 and prerendered for static hosting.
+This repository is a Nuxt 4 static resume site that preserves the original Mobirise look while moving generation, routing, and SEO into Nuxt.
 
 ## Stack
 - Nuxt 4 with Vue 3
 - Static generation via `nuxt generate`
 - Typed local content in `data/resume.ts`
-- Cloudflare Pages-ready redirects, `robots.txt`, and `sitemap.xml`
+- Legacy Mobirise and Bootstrap assets served from `public/legacy/`
+- Nuxt SEO-managed canonical tags, OG images, `robots.txt`, and `sitemap.xml`
 - Vitest for unit checks and Playwright for route smoke tests
 
 ## Requirements
-- Node.js 20.19+
-- Yarn v4
+- Docker Compose
+- GNU Make optional, for shorter local commands
 
-## Local development
+## Docker workflow
 ```bash
-yarn install
-yarn dev
+make install
+make dev
 ```
 
-The dev server runs on `http://localhost:3000`.
+The app runs on `http://localhost:3000`. Dependencies live in Docker-managed volumes so native modules stay Linux-only and do not pollute the host checkout.
 
-## Scripts
+## Common commands
 ```bash
-yarn dev         # Nuxt dev server
-yarn build       # Static prerender to .output/public
-yarn preview     # Preview the generated site locally
-yarn typecheck   # Nuxt + vue-tsc type checks
-yarn test:unit   # Vitest unit tests
-yarn test:e2e    # Build and run Playwright smoke tests
-yarn test        # Unit + e2e
+make build        # Static prerender to .output/public
+make preview      # Build and serve .output/public on port 3000
+make typecheck    # Nuxt + vue-tsc type checks
+make test-unit    # Vitest unit tests
+make test-e2e     # Build and test against the generated preview server
+make test         # Full test suite
+make nginx        # Serve .output/public with nginx on port 8030
 ```
+
+Builds fail on broken internal links. To include remote HTTP(S) link checks, run commands with `NUXT_LINK_CHECKER_REMOTE=1`.
 
 ## Project structure
 ```text
 assets/
   css/
-  images/
 components/
 data/
 layouts/
 pages/
 public/
-server/routes/
+  legacy/
 tests/
 ```
 
 - `pages/` contains the public routes: `/` and `/confirmation`
 - `data/resume.ts` is the content source of truth
-- `server/routes/` contains prerendered `robots.txt` and `sitemap.xml`
+- `public/legacy/` holds the original CSS, scripts, fonts, and image assets
+- `@nuxtjs/seo` generates canonical metadata, `robots.txt`, `sitemap.xml`, Schema.org, and OG images
 - `public/_redirects` preserves `/index.html` and `/confirmation.html`
 
-## Docker
-```bash
-docker compose up dev
-docker compose up preview
-```
-
-Use `docker compose up nginx` after a build if you want to serve `.output/public` as plain static files.
-
 ## Deployment
-Deploy `.output/public` to Cloudflare Pages or any static host. Set `NUXT_PUBLIC_SITE_URL` in the deployment environment so canonical links, `robots.txt`, and the sitemap use the correct domain.
+Deploy `.output/public` to Cloudflare Pages or any static host. The default canonical site URL is `https://ibarra.dev`; override it with `NUXT_SITE_URL` in deployment if needed. `NUXT_PUBLIC_SITE_URL` remains a fallback for compatibility.
+
+Run `make help` to list the remaining maintenance targets.

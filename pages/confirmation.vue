@@ -1,27 +1,22 @@
 <script setup lang="ts">
 import { resumeData } from '~/data/resume'
-import { buildAbsoluteUrl, normalizeSiteUrl } from '~/utils/site'
-
-const runtimeConfig = useRuntimeConfig()
-const siteUrl = normalizeSiteUrl(runtimeConfig.public.siteUrl)
-const canonicalUrl = buildAbsoluteUrl(siteUrl, '/confirmation')
-const ogImageUrl = buildAbsoluteUrl(siteUrl, '/legacy/images/background9.jpg')
 
 useSeoMeta({
   title: 'Meeting confirmation',
   description: 'Thanks for scheduling. I am looking forward to chat with you.',
-  ogTitle: 'Meeting confirmation',
-  ogDescription: 'Thanks for scheduling. I am looking forward to chat with you.',
-  ogUrl: canonicalUrl,
-  ogImage: ogImageUrl,
   ogType: 'website',
-  twitterCard: 'summary_large_image',
 })
 
-useHead({
-  link: [
-    { rel: 'canonical', href: canonicalUrl },
-  ],
+useRobotsRule({
+  noindex: true,
+  follow: true,
+})
+
+defineOgImage('Resume', {
+  eyebrow: 'Meeting booked',
+  title: 'Thanks for scheduling!',
+  subtitle: resumeData.profile.name,
+  description: "I'm looking forward to chat with you.",
 })
 </script>
 

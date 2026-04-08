@@ -1,10 +1,52 @@
+import { resumeData } from './data/resume'
+import { resolveSiteUrl } from './utils/site'
+
+const fetchRemoteUrls = process.env.NUXT_LINK_CHECKER_REMOTE === '1'
+
 export default defineNuxtConfig({
   compatibilityDate: '2026-04-08',
-  devtools: { enabled: true },
+  devtools: { enabled: process.env.NODE_ENV === 'development' },
+  modules: ['@nuxtjs/seo'],
   css: ['~/assets/css/main.css'],
-  runtimeConfig: {
-    public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://example.com',
+  site: {
+    url: resolveSiteUrl(process.env),
+    name: resumeData.profile.name,
+    description: resumeData.profile.summary,
+    defaultLocale: 'en',
+    trailingSlash: false,
+    identity: {
+      type: 'Person',
+      name: resumeData.profile.name,
+      jobTitle: resumeData.profile.jobTitle,
+      description: resumeData.profile.summary,
+      sameAs: [resumeData.profile.linkedinUrl],
+    },
+  },
+  ogImage: {
+    enabled: true,
+    zeroRuntime: true,
+  },
+  robots: {
+    enabled: true,
+  },
+  schemaOrg: {
+    enabled: true,
+  },
+  sitemap: {
+    enabled: true,
+    exclude: ['/confirmation'],
+    zeroRuntime: true,
+  },
+  linkChecker: {
+    enabled: true,
+    runOnBuild: true,
+    failOnError: true,
+    fetchRemoteUrls,
+    excludeLinks: [/^mailto:/, /^tel:/],
+    report: {
+      html: true,
+      markdown: true,
+      json: true,
     },
   },
   app: {

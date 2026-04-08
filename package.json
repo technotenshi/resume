@@ -2,24 +2,29 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=20.19.0"
+    "node": ">=24.0.0 <25"
   },
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt generate",
-    "preview": "nuxt preview",
+    "preview": "serve .output/public -l tcp://0.0.0.0:3000",
     "typecheck": "nuxt typecheck",
     "test": "yarn test:unit && yarn test:e2e",
     "test:unit": "vitest run",
-    "test:e2e": "yarn build && playwright test"
+    "test:e2e": "yarn build && playwright install chromium && playwright test"
   },
   "devDependencies": {
+    "@nuxtjs/seo": "^5.1.2",
     "@playwright/test": "^1.52.0",
+    "@resvg/resvg-js": "^2.6.2",
     "@types/node": "^24.6.0",
-    "nuxt": "4.2.0",
+    "nuxt": "4.4.2",
+    "satori": "^0.26.0",
+    "serve": "^14.2.6",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4",
-    "vue-tsc": "^3.1.1"
+    "vue-tsc": "^3.1.1",
+    "yoga-wasm-web": "^0.3.3"
   },
   "packageManager": "yarn@4.13.0"
 }
