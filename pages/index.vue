@@ -192,7 +192,15 @@ defineOgImage('Resume', {
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-12 col-lg-10">
-            <p class="mbr-text mbr-fonts-style display-7" v-html="resumeData.talksHtml" />
+            <div class="mbr-text mbr-fonts-style display-7">
+              <p
+                v-for="talk in resumeData.talks"
+                :key="talk.title"
+                class="mb-4"
+              >
+                <strong>{{ talk.title }}</strong>: {{ talk.event }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -219,7 +227,7 @@ defineOgImage('Resume', {
               </div>
               <div class="card-box align-center">
                 <h5 class="card-title mbr-fonts-style mb-3 display-7"><strong>{{ client.title }}</strong></h5>
-                <p class="mbr-text mbr-fonts-style mb-4 display-4" v-html="client.description" />
+                <p class="mbr-text mbr-fonts-style mb-4 display-4">{{ client.description }}</p>
                 <div class="mbr-section-btn mt-3">
                   <a class="btn btn-primary-outline display-4" :href="client.href" target="_blank" rel="noreferrer">Learn More</a>
                 </div>
@@ -246,7 +254,15 @@ defineOgImage('Resume', {
         <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-2"><strong>Testimonials</strong></h3>
         <div class="row justify-content-center">
           <div v-for="testimonial in resumeData.testimonials.featured" :key="testimonial.name" class="card col-12 col-md-6">
-            <p class="mbr-text mbr-fonts-style mb-4 display-7" v-html="testimonial.quoteHtml" />
+            <div class="mbr-text mbr-fonts-style mb-4 display-7">
+              <p
+                v-for="(paragraph, index) in testimonial.quote"
+                :key="`${testimonial.name}-featured-quote-${index}`"
+                class="mb-3"
+              >
+                {{ paragraph }}
+              </p>
+            </div>
             <div class="d-flex mb-md-0 mb-4">
               <div class="image-wrapper">
                 <img :alt="testimonial.name" :src="testimonial.image">

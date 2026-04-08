@@ -33,7 +33,13 @@ defineProps<{
                 <img :src="item.image" :alt="item.name">
               </div>
               <div class="user_text mb-4">
-                <p class="mbr-fonts-style display-7" v-html="item.quoteHtml" />
+                <p
+                  v-for="(paragraph, index) in item.quote"
+                  :key="`${item.name}-quote-${index}`"
+                  class="mbr-fonts-style display-7"
+                >
+                  {{ paragraph }}
+                </p>
               </div>
               <div class="user_name mbr-fonts-style mb-2 display-7">
                 <strong>{{ item.name }}</strong>

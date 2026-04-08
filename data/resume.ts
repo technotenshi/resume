@@ -24,10 +24,15 @@ export interface ResumeCollectionItem {
 }
 
 export interface ResumeTestimonial {
-  quoteHtml: string
+  quote: string[]
   name: string
   role: string
   image: string
+}
+
+export interface ResumeTalk {
+  title: string
+  event: string
 }
 
 export const resumeData = {
@@ -141,12 +146,28 @@ export const resumeData = {
     },
   ] satisfies ResumeCollectionItem[],
   publicationArchiveUrl: 'https://www.sitepoint.com/author/mibarra/',
-  talksHtml:
-    '<strong>Information security in databases – from SQL Injection to cryptography</strong>: Hack &amp; Beers, Mexico, 2013<br><br><strong>Design Patterns</strong>: Tiempo Development, Mexico, 2013<br><br><strong>Kanban! (+ agile)</strong>: Carrentals.com 2020<br><br><strong>How I went from zero to a self-organizing team</strong>: Expedia Group Agile Summit 2020&nbsp;<br>',
+  talks: [
+    {
+      title: 'Information security in databases - from SQL Injection to cryptography',
+      event: 'Hack & Beers, Mexico, 2013',
+    },
+    {
+      title: 'Design Patterns',
+      event: 'Tiempo Development, Mexico, 2013',
+    },
+    {
+      title: 'Kanban! (+ agile)',
+      event: 'Carrentals.com 2020',
+    },
+    {
+      title: 'How I went from zero to a self-organizing team',
+      event: 'Expedia Group Agile Summit 2020',
+    },
+  ] satisfies ResumeTalk[],
   featuredClients: [
     {
       title: 'Carrentals.com',
-      description: 'All the cars in the world!&nbsp; Rent a car anywhere in the world, at the cheapest price.',
+      description: 'All the cars in the world! Rent a car anywhere in the world, at the cheapest price.',
       href: 'https://carrentals.com',
       image: '/legacy/images/cr-en-svg.svg',
     },
@@ -204,15 +225,19 @@ export const resumeData = {
   testimonials: {
     featured: [
       {
-        quoteHtml:
-          'Talented, open mind, data and quality driven are the words that come to my mind when I think about Angel.<br><br>I was lucky to manage Angel during 3 years at CarRentals.com. We worked together to make CarRentals.com booking and payment systems better, moving from a monolithic application to micro services using event driven design. We had great achievements during this time. One I remember is how Angel changed our payment service code architecture to make new payment service providers on-boarding quick, easy and safe.<br>I was particularly impressed how Angel was mentoring junior engineers within the team, she never gave up when trying to make them better engineers, always willing to share and help. She helped me to build a technically strong and quality focused team for sure.<br><br>Angel is a fervent supporter of agile methodologies and shared her experience in a nice talk at during Expedia Group Agile Summit, another way for her to share and help others!<br>Angel would be a great asset to any team.',
+        quote: [
+          'Talented, open mind, data and quality driven are the words that come to my mind when I think about Angel.',
+          'I was lucky to manage Angel during 3 years at CarRentals.com. We worked together to make CarRentals.com booking and payment systems better, moving from a monolithic application to micro services using event driven design. We had great achievements during this time. One I remember is how Angel changed our payment service code architecture to make new payment service providers on-boarding quick, easy and safe. I was particularly impressed how Angel was mentoring junior engineers within the team, she never gave up when trying to make them better engineers, always willing to share and help. She helped me to build a technically strong and quality focused team for sure.',
+          'Angel is a fervent supporter of agile methodologies and shared her experience in a nice talk at during Expedia Group Agile Summit, another way for her to share and help others! Angel would be a great asset to any team.',
+        ],
         name: 'Valérie Béreaud',
         role: 'Engineering Manager, Expedia Group',
         image: '/legacy/images/0-70x70.jpg',
       },
       {
-        quoteHtml:
+        quote: [
           'I worked with Angel as part of CarRentals core engineering team. Angel is a focused person and the way she solves problem with integrity is really appreciable. I have had opportunity of working closely with Angel on different projects and I noticed that she adheres to the processes and makes sure to deliver the code/results with good quality. It’s been a pleasure working with her.',
+        ],
         name: 'Suraj Anuraag',
         role: 'Software Engineer, Expedia Group',
         image: '/legacy/images/0-1-100x100.jpg',
@@ -220,15 +245,17 @@ export const resumeData = {
     ] satisfies ResumeTestimonial[],
     carousel: [
       {
-        quoteHtml:
+        quote: [
           'Worked with Angel for couple of years. She is very good at designing solutions and getting things done the right way. She is very helpful and helped me with PHP and learning the tech stack.',
+        ],
         name: 'Santosh K',
         role: 'Software Engineer, Amazon',
         image: '/legacy/images/0-2-100x100.jpg',
       },
       {
-        quoteHtml:
-          'Angel is great developer and teammate to work with. I have worked with her to stream the data from backend to the data platform, in which she came up with different metrics &amp; scalable solution as well. Thinks about the system end to end and performance aspect as well.',
+        quote: [
+          'Angel is great developer and teammate to work with. I have worked with her to stream the data from backend to the data platform, in which she came up with different metrics & scalable solution as well. Thinks about the system end to end and performance aspect as well.',
+        ],
         name: 'Arjun Mantri',
         role: 'Software Engineer, Expedia Group',
         image: '/legacy/images/0-3-100x100.jpg',
