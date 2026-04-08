@@ -22,8 +22,12 @@ function loadScript(src: string) {
         return
       }
 
-      existing.addEventListener('load', () => resolve(), { once: true })
-      existing.addEventListener('error', () => reject(new Error(`Failed to load ${src}`)), { once: true })
+      existing.addEventListener('load', () => {
+        resolve()
+      }, { once: true })
+      existing.addEventListener('error', () => {
+        reject(new Error(`Failed to load ${src}`))
+      }, { once: true })
       return
     }
 
@@ -35,7 +39,9 @@ function loadScript(src: string) {
       script.dataset.loaded = 'true'
       resolve()
     }, { once: true })
-    script.addEventListener('error', () => reject(new Error(`Failed to load ${src}`)), { once: true })
+    script.addEventListener('error', () => {
+      reject(new Error(`Failed to load ${src}`))
+    }, { once: true })
     document.body.appendChild(script)
   })
 }
