@@ -2,6 +2,10 @@
 node_modules
 bower_components
 
+# yarn 4
+.yarn/cache
+.yarn/install-state.gz
+
 # compiled output
 /dist
 /.tmp

@@ -1,9 +1,8 @@
 {
   "private": true,
   "engines": {
-    "node": ">=4"
+    "node": ">=18"
   },
-  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.28.6",
     "@babel/preset-env": "^7.28.6",
@@ -57,5 +56,6 @@
         "single"
       ]
     }
-  }
+  },
+  "packageManager": "yarn@4.13.0"
 }
