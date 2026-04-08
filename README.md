@@ -1,4 +1,4 @@
-# Resume Site (Static) — Gulp + BrowserSync
+# Resume Site (Static) — Gulp + BrowserSync 🏳️‍⚧️
 
 A static site generated with Mobirise (plain HTML/CSS/JS). Built and served with Gulp; no framework or bundler. Keep changes simple and file-based.
 
@@ -6,15 +6,13 @@ A static site generated with Mobirise (plain HTML/CSS/JS). Built and served with
 - Live-reload dev server (BrowserSync)
 - Production build to `dist/` with HTML/CSS/JS minification and image optimization
 - Browser-based tests with Mocha + Chai (no headless runner wired)
- 
 
 ## Requirements
-- Node.js 18+ recommended (repo’s `docker-compose.yml` uses `node:20`)
-- Yarn
+- Node.js 18+
+- Yarn v4 (managed via `packageManager` field; binary committed at `.yarn/releases/`)
 
 Optional containerized workflow:
 ```bash
-# one-off dev session inside container
 docker compose run --rm app bash -lc "yarn install && yarn start"
 ```
 
@@ -57,9 +55,6 @@ yarn start
 # Build for production (outputs to dist/)
 yarn build
 
-# Build inside Docker container (recommended for verifying builds)
-docker compose run -it --rm app bash -lc "yarn build"
-
 # Preview built site (serves dist/)
 yarn serve:dist
 
@@ -68,7 +63,6 @@ yarn serve:test
 
 # List all gulp tasks
 yarn tasks
-
 ```
 
 ## Development workflow
@@ -82,12 +76,12 @@ yarn tasks
 
 BrowserSync defaults to port 9000; override with:
 ```bash
-gulp serve --port 9001
+yarn start --port 9001
 ```
 
 ## Build pipeline (gulpfile.js)
 - `styles`: PostCSS with `autoprefixer`; writes to `.tmp/styles` (and `dist/styles` in prod)
-- `scripts`: copies JS to `.tmp/scripts` (and `dist/scripts` in prod). Babel is configured but disabled (the `$.babel()` pipe is commented). Don’t rely on transpilation unless you enable it.
+- `scripts`: copies JS to `.tmp/scripts` (and `dist/scripts` in prod). Babel is configured but disabled (the `$.babel()` pipe is commented). Don't rely on transpilation unless you enable it.
 - `html`: `useref` + minify HTML/CSS/JS to `dist/`
 - `images`: imagemin to `dist/images`
 - `fonts`, `extras`: copy-through tasks
@@ -100,7 +94,7 @@ Note: `gulp-useref` concatenation requires HTML build blocks. Current pages most
 - Specs under `test/spec/**/*.js` (see `test/spec/test.js`)
 - To test app code, reference your script in `test/index.html`:
 ```html
-<!-- served at /scripts when running npm run serve:test -->
+<!-- served at /scripts when running yarn serve:test -->
 <script src="/scripts/your-file.js"></script>
 ```
 Run the harness:
@@ -118,9 +112,13 @@ yarn build
 ## Enabling Babel (optional)
 If you need transpilation, uncomment the `$.babel()` pipe inside `scripts()` in `gulpfile.js`. `.babelrc` already includes `@babel/preset-env`.
 
-
 ## CI/Security
-GitHub CodeQL workflow at `.github/workflows/codeql-analysis.yml` scans JavaScript on `develop` and `master`.
+- **CodeQL** — `.github/workflows/codeql-analysis.yml` scans JavaScript on `develop` and `master`
+- **Claude Code Review** — `.github/workflows/claude-code-review.yml` runs automated AI code review on pull requests
+- **Claude Code** — `.github/workflows/claude.yml` responds to `@claude` mentions in issues and PRs
+- **Codacy** — static analysis on pull requests
+- **GitGuardian** — secret scanning on every push
+- **Cloudflare Pages** — preview deployments on pull requests
 
 ## Project structure
 ```
@@ -132,15 +130,19 @@ app/
   images/
   fonts/
 .github/
-  workflows/codeql-analysis.yml
+  workflows/
+    codeql-analysis.yml
+    claude.yml
+    claude-code-review.yml
 gulpfile.js
 package.json
+CLAUDE.md
 ```
 
 ## Troubleshooting
-- Port in use: run `gulp serve --port 9001`
+- Port in use: run `yarn start --port 9001`
 - Stale output: the `clean` task runs for serve/build. If needed, manually remove `.tmp/` and `dist/`
-- Images look unoptimized in dev: optimization happens only during `npm run build`
+- Images look unoptimized in dev: optimization only happens during `yarn build`
 
 ## License
 Not specified.
