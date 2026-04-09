@@ -1,4 +1,4 @@
-.PHONY: help install dev build preview typecheck test-unit test-e2e test nginx ps logs stop down
+.PHONY: help install dev build preview typecheck test-unit test-e2e test git-maintenance nginx ps logs stop down
 
 DOCKER_COMPOSE := docker compose
 APP_SERVICE := app
@@ -14,6 +14,7 @@ help:
 		"  make test-unit   Run Vitest unit tests" \
 		"  make test-e2e    Run Playwright end-to-end tests" \
 		"  make test        Run the full test suite" \
+		"  make git-maintenance Prune remote refs and run git garbage collection" \
 		"  make nginx       Serve .output/public with nginx on port 8030" \
 		"  make ps          Show Docker Compose service status" \
 		"  make logs        Tail Docker Compose logs" \
@@ -43,6 +44,9 @@ test-e2e:
 
 test:
 	$(DOCKER_COMPOSE) run --rm $(APP_SERVICE) yarn test
+
+git-maintenance:
+	git remote prune origin && git gc --prune=1.month.ago --no-quiet
 
 nginx:
 	$(DOCKER_COMPOSE) up nginx

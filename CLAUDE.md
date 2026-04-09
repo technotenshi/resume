@@ -18,6 +18,8 @@ make test
 make ps / logs / stop / down
 ```
 
+Never use `docker exec` to run commands — always use `docker compose run --rm app <cmd>`.
+
 Raw docker compose equivalents also work if needed:
 
 ```bash
@@ -77,6 +79,7 @@ make nginx        # serves .output/public via nginx on port 8030
 - Keep action pins intact in workflow files
 - Prefer updating docs and tests alongside structural app changes so the repo never documents the old stack
 - When merging multiple dependency PRs, resolve `yarn.lock` conflicts with `git checkout --theirs yarn.lock && docker compose run --rm app yarn install` — never merge it manually
+- After any `yarn.lock` change (merge or conflict resolution), run `make install` before running tests — containers don't auto-reflect updated lockfiles
 
 ## Claude Code automations
 
