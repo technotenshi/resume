@@ -28,6 +28,6 @@
   },
   "packageManager": "yarn@4.13.0",
   "resolutions": {
-    "minimatch": "^9.0.7"
+    "minimatch": "^10.0.0"
   }
 }
