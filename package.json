@@ -17,16 +17,16 @@
     "@nuxtjs/seo": "^5.1.2",
     "@playwright/test": "^1.52.0",
     "@resvg/resvg-js": "^2.6.2",
-    "@types/node": "^24.6.0",
+    "@types/node": "^25.6.0",
     "nuxt": "4.4.2",
     "satori": "^0.26.0",
     "serve": "^14.2.6",
-    "typescript": "^6.0.0",
+    "typescript": "^6.0.3",
     "vitest": "^4.0.0",
-    "vue-tsc": "^3.1.1",
+    "vue-tsc": "^3.2.7",
     "yoga-wasm-web": "^0.3.3"
   },
-  "packageManager": "yarn@4.13.0",
+  "packageManager": "yarn@4.14.1",
   "resolutions": {
     "minimatch": "^10.0.0"
   }
