@@ -81,6 +81,11 @@ make nginx        # serves .output/public via nginx on port 8030
 - When merging multiple dependency PRs, resolve `yarn.lock` conflicts with `git checkout --theirs yarn.lock && docker compose run --rm app yarn install` — never merge it manually
 - After any `yarn.lock` change (merge or conflict resolution), run `make install` before running tests — containers don't auto-reflect updated lockfiles
 
+## Gotchas
+
+- **PostToolUse hooks run automatically**: editing `.vue`/`.ts` files triggers typecheck; editing `tests/unit/` triggers unit tests. Output appears inline — don't re-run manually.
+- **OG image `400 Invalid island request hash`**: caused by stale Nuxt prerender cache. Fix: `docker compose run --rm app sh -c 'rm -rf node_modules/.cache/nuxt && yarn build'`. Recurs after nuxt version bumps.
+
 ## Claude Code automations
 
 - `/verify-build` — typecheck + unit tests + build in sequence
