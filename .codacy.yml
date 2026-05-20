@@ -1,0 +1,5 @@
+---
+engines:
+  checkov:
+    exclude_paths:
+      - ".github/workflows/claude-code-review.yml"
