@@ -28,6 +28,7 @@
   },
   "packageManager": "yarn@4.15.0",
   "resolutions": {
-    "minimatch": "^10.0.0"
+    "minimatch": "^10.0.0",
+    "nuxt-og-image": "^6.5.1"
   }
 }
