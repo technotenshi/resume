@@ -79,13 +79,21 @@ make nginx        # serves .output/public via nginx on port 8030
 - Prefer updating docs and tests alongside structural app changes so the repo never documents the old stack
 - When merging multiple dependency PRs, resolve `yarn.lock` conflicts with `git checkout --theirs yarn.lock && docker compose run --rm app yarn install` — never merge it manually
 - After any `yarn.lock` change (merge or conflict resolution), run `make install` before running tests — containers don't auto-reflect updated lockfiles
+- A clean (conflict-free) `yarn.lock` auto-merge can still silently drop a version bump — after merging, grep `yarn.lock` for each target package's resolved version, don't trust "no conflict" alone
+- `yarn up -R <pkg>` bumps transitive deps but rejects version ranges (`pkg@^1.2.3` errors) — pass the bare name and it resolves to the latest satisfying existing tree ranges
+- `yarn up <pkg>` (non-recursive, direct deps) tightens the `package.json` range to the resolved version as a side effect — revert the range manually if the source PR was lockfile-only
+- Dependency PRs merged via a combined/squash-merged branch aren't auto-closed by dependabot/renovate — close each as superseded manually, verifying against `main` first
+- After merging, the remote branch is usually already auto-deleted by GitHub — `git push origin --delete <branch>` failing with "remote ref does not exist" is expected
 
 ## Gotchas
 
 - **PostToolUse hooks run automatically**: editing `.vue`/`.ts` files triggers typecheck; editing `tests/unit/` triggers unit tests. Output appears inline — don't re-run manually.
 - **OG image `400 Invalid island request hash`**: two causes — (1) stale Nuxt prerender cache: fix with `docker compose run --rm app sh -c 'rm -rf node_modules/.cache/nuxt && yarn build'`; (2) version mismatch between nuxt 4.4.x and nuxt-og-image < 6.5.1: fix by adding `"nuxt-og-image": "^6.5.1"` to `resolutions` in `package.json`.
-- **`claude-review` check fails on PRs that modify `claude-code-review.yml`**: the action's OIDC security model requires the workflow file to match `main` exactly — any diff causes a 401. Expected behavior; resolves after the PR merges.
 - **Codacy inline suppression is not supported**: to suppress a finding, use `.codacy.yml` with global `exclude_paths`. Inline comments like `# codacy-disable-next-line` have no effect.
+- **TypeScript v7 breaks `vue-tsc`**: `vue-tsc@3.3.8` (latest as of writing) still requires `typescript/lib/tsc`, which TS7's `exports` map no longer exposes (`ERR_PACKAGE_PATH_NOT_EXPORTED`). Hold `typescript` at `^6.x` until vue-tsc ships TS7 support.
+- **Typecheck is intentionally non-blocking in CI**: `node.js.yml`'s typecheck step runs with `continue-on-error` — a failing `yarn typecheck` no longer fails the `build` job or blocks merge. Static site generation succeeding matters more than typecheck passing. Green CI does not imply typecheck passed — check the step output directly.
+- **Duplicate yarn.lock resolutions**: the same package can have two resolutions (old vulnerable + new patched) coexisting because different requesters pin different ranges. Plain `yarn install` won't consolidate them — add a `resolutions` override in `package.json` (see existing `minimatch`/`nuxt-og-image` entries) to force one version.
+- **Dependabot vulnerability alerts** aren't visible via `gh pr` commands — use `gh api repos/<owner>/<repo>/dependabot/alerts`. Use `yarn why <pkg>` to trace which top-level dep pulls in a vulnerable transitive package before choosing between `yarn up -R` and a `resolutions` override.
 
 ## Claude Code automations
 
