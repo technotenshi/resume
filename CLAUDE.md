@@ -89,12 +89,10 @@ make nginx        # serves .output/public via nginx on port 8030
 
 - **PostToolUse hooks run automatically**: editing `.vue`/`.ts` files triggers typecheck; editing `tests/unit/` triggers unit tests. Output appears inline — don't re-run manually.
 - **OG image `400 Invalid island request hash`**: two causes — (1) stale Nuxt prerender cache: fix with `docker compose run --rm app sh -c 'rm -rf node_modules/.cache/nuxt && yarn build'`; (2) version mismatch between nuxt 4.4.x and nuxt-og-image < 6.5.1: fix by adding `"nuxt-og-image": "^6.5.1"` to `resolutions` in `package.json`.
-- **`claude-review` check fails on PRs that modify `claude-code-review.yml`**: the action's OIDC security model requires the workflow file to match `main` exactly — any diff causes a 401. Expected behavior; resolves after the PR merges.
 - **Codacy inline suppression is not supported**: to suppress a finding, use `.codacy.yml` with global `exclude_paths`. Inline comments like `# codacy-disable-next-line` have no effect.
 - **TypeScript v7 breaks `vue-tsc`**: `vue-tsc@3.3.8` (latest as of writing) still requires `typescript/lib/tsc`, which TS7's `exports` map no longer exposes (`ERR_PACKAGE_PATH_NOT_EXPORTED`). Hold `typescript` at `^6.x` until vue-tsc ships TS7 support.
 - **Typecheck is intentionally non-blocking in CI**: `node.js.yml`'s typecheck step runs with `continue-on-error` — a failing `yarn typecheck` no longer fails the `build` job or blocks merge. Static site generation succeeding matters more than typecheck passing. Green CI does not imply typecheck passed — check the step output directly.
 - **Duplicate yarn.lock resolutions**: the same package can have two resolutions (old vulnerable + new patched) coexisting because different requesters pin different ranges. Plain `yarn install` won't consolidate them — add a `resolutions` override in `package.json` (see existing `minimatch`/`nuxt-og-image` entries) to force one version.
-- **`claude-review` can also fail from action infra** (SDK errors in ~2s, $0 cost, before reviewing anything) — distinct from the OIDC workflow-file gotcha above. If it recurs across unrelated PRs, it's likely a `CLAUDE_CODE_OAUTH_TOKEN` issue on the repo/org side, not fixable from a PR.
 - **Dependabot vulnerability alerts** aren't visible via `gh pr` commands — use `gh api repos/<owner>/<repo>/dependabot/alerts`. Use `yarn why <pkg>` to trace which top-level dep pulls in a vulnerable transitive package before choosing between `yarn up -R` and a `resolutions` override.
 
 ## Claude Code automations
