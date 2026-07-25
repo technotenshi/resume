@@ -76,7 +76,6 @@ make nginx        # serves .output/public via nginx on port 8030
 ## Git workflow
 
 - Do not push directly to `main`
-- Keep action pins intact in workflow files
 - Prefer updating docs and tests alongside structural app changes so the repo never documents the old stack
 - When merging multiple dependency PRs, resolve `yarn.lock` conflicts with `git checkout --theirs yarn.lock && docker compose run --rm app yarn install` — never merge it manually
 - After any `yarn.lock` change (merge or conflict resolution), run `make install` before running tests — containers don't auto-reflect updated lockfiles
@@ -84,7 +83,9 @@ make nginx        # serves .output/public via nginx on port 8030
 ## Gotchas
 
 - **PostToolUse hooks run automatically**: editing `.vue`/`.ts` files triggers typecheck; editing `tests/unit/` triggers unit tests. Output appears inline — don't re-run manually.
-- **OG image `400 Invalid island request hash`**: caused by stale Nuxt prerender cache. Fix: `docker compose run --rm app sh -c 'rm -rf node_modules/.cache/nuxt && yarn build'`. Recurs after nuxt version bumps.
+- **OG image `400 Invalid island request hash`**: two causes — (1) stale Nuxt prerender cache: fix with `docker compose run --rm app sh -c 'rm -rf node_modules/.cache/nuxt && yarn build'`; (2) version mismatch between nuxt 4.4.x and nuxt-og-image < 6.5.1: fix by adding `"nuxt-og-image": "^6.5.1"` to `resolutions` in `package.json`.
+- **`claude-review` check fails on PRs that modify `claude-code-review.yml`**: the action's OIDC security model requires the workflow file to match `main` exactly — any diff causes a 401. Expected behavior; resolves after the PR merges.
+- **Codacy inline suppression is not supported**: to suppress a finding, use `.codacy.yml` with global `exclude_paths`. Inline comments like `# codacy-disable-next-line` have no effect.
 
 ## Claude Code automations
 
