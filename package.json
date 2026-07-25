@@ -21,7 +21,7 @@
     "nuxt": "4.5.0",
     "satori": "^0.29.0",
     "serve": "^14.2.6",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.0",
     "vitest": "^4.1.8",
     "vue-tsc": "^3.3.4",
     "yoga-wasm-web": "^0.3.3"
