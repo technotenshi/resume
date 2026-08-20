@@ -1,0 +1,30 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "file=$(echo \"$CLAUDE_TOOL_INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('file_path',''))\" 2>/dev/null); if echo \"$file\" | grep -q 'yarn\\.lock'; then echo 'ERROR: Do not edit yarn.lock directly. Run: docker compose run --rm app yarn install'; exit 2; fi"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "file=$(echo \"$CLAUDE_TOOL_INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('file_path',''))\" 2>/dev/null); if echo \"$file\" | grep -qE '\\.(vue|ts)$' && ! echo \"$file\" | grep -q 'tests/'; then docker compose run --rm app yarn typecheck 2>&1 | tail -10; fi"
+          },
+          {
+            "type": "command",
+            "command": "file=$(echo \"$CLAUDE_TOOL_INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('file_path',''))\" 2>/dev/null); if echo \"$file\" | grep -q 'tests/unit/'; then docker compose run --rm app yarn test:unit 2>&1 | tail -15; fi"
+          }
+        ]
+      }
+    ]
+  }
+}

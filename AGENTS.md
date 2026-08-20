@@ -23,3 +23,10 @@ Add unit coverage for utilities and route-support files under `tests/unit/`. Add
 
 ## Commit & Pull Request Guidelines
 Recent history uses short, imperative commit subjects such as `Update CLAUDE.md...`, `Fix CodeQL alert...`, and `Add Claude Code GitHub Workflow`. Follow that pattern, and append the PR number when appropriate. Do not push directly to `main`; open a PR instead. Rebase onto the latest `main`, describe the user-visible change, link related issues, and attach screenshots for any HTML or styling updates.
+
+## Cross-tool working agreements (added 2026-08-05)
+
+`~/HARNESS.md` is the canonical agreement for all AI tools (Hermes, Claude Code, ChatGPT/Codex).
+- `docs/DECISIONS.md` is this repo's decision log — read before planning, append when a decision is made or reversed.
+- Infra-mutating actions need explicit approval in the current session.
+- Never claim success without real verification.

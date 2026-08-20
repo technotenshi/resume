@@ -101,3 +101,10 @@ make nginx        # serves .output/public via nginx on port 8030
 - `/merge-dep-prs` — batch-merge dependency PRs, handles yarn.lock regeneration
 - `/update-resume` — guided edits to `data/resume.ts` with post-edit validation
 - `/make-task <target>` — run any Makefile target
+
+## Cross-tool working agreements (added 2026-08-05)
+
+`~/HARNESS.md` is the canonical agreement for all AI tools (Hermes, Claude Code, ChatGPT/Codex).
+- `docs/DECISIONS.md` is this repo's decision log — read before planning, append when a decision is made or reversed.
+- Infra-mutating actions need explicit approval in the current session.
+- Never claim success without real verification.
