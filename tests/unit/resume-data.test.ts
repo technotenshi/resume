@@ -4,10 +4,10 @@ import { resumeData } from '../../data/resume'
 
 describe('resume data', () => {
   it('keeps the primary homepage sections populated', () => {
-    expect(resumeData.experience).toHaveLength(3)
+    expect(resumeData.experience).toHaveLength(5)
     expect(resumeData.skills).toHaveLength(3)
     expect(resumeData.publications).toHaveLength(4)
-    expect(resumeData.featuredClients).toHaveLength(4)
+    expect(resumeData.featuredClients).toHaveLength(7)
     expect(resumeData.logoWall.length).toBeGreaterThanOrEqual(5)
     expect(resumeData.testimonials.featured).toHaveLength(2)
     expect(resumeData.testimonials.carousel).toHaveLength(2)
