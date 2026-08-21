@@ -8337,7 +8337,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rolldown@npm:~1.2.4":
+"rolldown@npm:~1.2.1, rolldown@npm:~1.2.4":
   version: 1.2.5
   resolution: "rolldown@npm:1.2.5"
   dependencies:
@@ -8516,6 +8516,7 @@ __metadata:
     "@resvg/resvg-js": "npm:^2.6.2"
     "@types/node": "npm:^26.1.2"
     nuxt: "npm:4.5.2"
+    rolldown: "npm:~1.2.1"
     satori: "npm:^0.33.0"
     serve: "npm:^14.2.6"
     typescript: "npm:^6.0.3"
