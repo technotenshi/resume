@@ -21,7 +21,7 @@ describe('resume data', () => {
   })
 
   it('uses experience IDs that do not collide with static page sections', () => {
-    const staticSectionIds = ['content5-r']
+    const staticSectionIds = ['content5-r', 'content5-y']
 
     for (const experience of resumeData.experience) {
       expect(staticSectionIds).not.toContain(experience.id)
