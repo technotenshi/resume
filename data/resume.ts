@@ -84,7 +84,7 @@ export const resumeData = {
         'Designed and built RESTful APIs with PHP, Symfony, and Doctrine to replace legacy backend services, supporting billing, customer management, and infrastructure provisioning at scale. Integrated third-party APIs including OpenStack, NetBox, and multiple payment gateways spanning credit card processing, cryptocurrency, Braintree, and Alipay, handling fraud, disputes, and chargebacks across that surface. Built asynchronous provisioning workflows with real-time status monitoring for complex infrastructure operations. Introduced Scrum to the backend team, establishing sprint planning, retrospectives, story-point practices, and clear definitions of ready/done, improving delivery cadence and onboarding time. Implemented mandatory peer code review for all pull requests. Led optimization and execution of bulk migration scripts moving millions of legacy records across billing, infrastructure, and user data. Collaborated across time zones with an onsite lead and offsite senior engineer to align backend architecture with business needs, and modernized database usage with MariaDB and MongoDB for transactional and unstructured data.',
     },
     {
-      id: 'content5-r',
+      id: 'content5-u',
       sectionClass: 'content5 cid-sad1aiy0CQ',
       heading: 'Senior Software Engineer | iSpot.tv | Feb 2022 - May 2024',
       body:

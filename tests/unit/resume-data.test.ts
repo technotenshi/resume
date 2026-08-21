@@ -19,4 +19,12 @@ describe('resume data', () => {
       expect(contact.href).toMatch(/^(mailto:|tel:|https?:\/\/)/)
     }
   })
+
+  it('uses experience IDs that do not collide with static page sections', () => {
+    const staticSectionIds = ['content5-r']
+
+    for (const experience of resumeData.experience) {
+      expect(staticSectionIds).not.toContain(experience.id)
+    }
+  })
 })
