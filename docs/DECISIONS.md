@@ -12,3 +12,11 @@ Harness Phase 1: this file becomes the repo's decision log; working agreements i
 TypeScript 7 no longer exports. Keep TypeScript at `^6.0.3` until vue-tsc
 supports the TypeScript 7 package exports; this restores the required
 typecheck while retaining the dependency updates consolidated in this branch.
+
+## 2026-08-20 — Upgrade TypeScript to 7.x; typecheck remains non-blocking
+
+`vue-tsc` 3.3.10 (latest) still triggers `ERR_PACKAGE_PATH_NOT_EXPORTED` with
+TypeScript 7. However, `yarn typecheck` runs with `continue-on-error: true` in
+CI and does not block deployment or the static build. TypeScript has been
+upgraded to `^7.0.0`; the typecheck failure is accepted until vue-tsc ships
+TypeScript 7 support.
