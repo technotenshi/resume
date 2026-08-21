@@ -26,7 +26,7 @@
     "vue-tsc": "^3.3.4",
     "yoga-wasm-web": "^0.3.3"
   },
-  "packageManager": "yarn@4.17.1",
+  "packageManager": "yarn@4.18.0",
   "resolutions": {
     "minimatch": "^10.0.0",
     "nuxt-og-image": "^6.5.1"
