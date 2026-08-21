@@ -39,10 +39,10 @@ export const resumeData = {
   profile: {
     name: 'Angel Ibarra',
     location: 'Seattle Greater Area, USA',
-    title: 'Angel Ibarra - Web Developer for hire',
-    jobTitle: 'Web Application Developer',
+    title: 'Angel Ibarra - Senior Software Engineer for hire',
+    jobTitle: 'Senior Software Engineer & Technical Leader',
     summary:
-      'Web application developer for 20 years. Amazed and involved in distributed systems development. Software development processes and best practices evangelist. Cryptography and information security fan.',
+      'Senior software engineer and technical leader with 20+ years building scalable backend systems, cloud infrastructure, and data-driven applications across fintech, ad-tech, e-commerce, insurance, hosting, and SaaS. Deep expertise in Java, Node.js, Python, PHP, AWS, microservices, and security architecture. Passionate about process improvement, mentorship, and building reliable systems that serve real needs.',
     heroBackground: '/legacy/images/mbr-1920x1246.jpg',
     linkedinUrl: 'https://www.linkedin.com/in/miguelibarra1/?locale=en_US',
     email: 'ibarra.dev@v25.mozmail.com',
@@ -70,25 +70,39 @@ export const resumeData = {
   ] satisfies ResumeContact[],
   experience: [
     {
-      id: 'content5-l',
+      id: 'content5-p',
       sectionClass: 'content5 cid-sad0mgp31l',
-      heading: 'Software Development Engineer | Carrentals.com Inc, Expedia Group Company | Sept 2016 - present',
+      heading: 'Chief Technology Officer (Hands-On / IC) | Chute Pros | Jan 2026 - Aug 2026',
       body:
-        'Create solutions for the heart of our car rental system. Be the go-to person for business and technical knowledge. Set the bar for code quality and best practices. Mentor and coach less experienced developers. Leverage and innovate with AWS ecosystem. PHP, Java, JavaScript. Postgres, MySQL. Contributed to transform legacy application, laying the groundwork for scaling to 10x the traffic. Migrated millions of records from external marketing database into ours, saving company several thousand dollars on 3rd party contracts. Led development efforts and quality assurance for new feature involving car availability and price changes at time of booking, giving the customer the appropriate alternatives, increasing conversion rate and customer satisfaction. Refactored legacy payment application to use latest language features, best practices, and test automation without breaking backwards compatibility and making development of critical features for continuation of business faster without sacrificing quality, enabling the company to continue to process payments in Europe. Lead the team through a transition period, coaching and advising on team forming/norming, processes, and expectations, not only technically but soft skills as well, looking ways to enable meaningful deliveries.',
+        'Served as hands-on CTO for a growing field-service company, owning technology end-to-end. Built and operated a server infrastructure automation platform on Ansible, covering multi-environment bootstrap, hardening, Vault-based secrets management, and CI-integrated lint remediation across the VPS fleet. Designed a layered security stack combining CrowdSec intrusion prevention, Wazuh monitoring, and hardened SSH/PAM/sysctl configuration with fail2ban and AIDE, backed by a full infrastructure security review. Deployed Traefik with Cloudflare integration and automated ACME certificates, and stood up Authelia and later Authentik as the company\'s SSO/identity provider. Automated a 3-2-1 backup strategy with Restic on systemd timers and S3-compatible off-site storage. Built AWS SES email infrastructure with DKIM and SPF for authenticated transactional email, and deployed Uptime Kuma and Komodo for monitoring and orchestration across the fleet. Designed and built a custom invoicing application from scratch with Nuxt.js and Vue, including JSON-driven rendering, cryptographic QR-code validation, and an automated email delivery pipeline, developed test-first. Set up SuiteCRM with a Dockerized local development environment, and built a custom MCP integration connecting AI tooling to the company\'s project-management board for AI-assisted tracking. Led business-systems design, analyzing PO-to-invoice and vendor-payment workflows and defining data requirements for the CRM rollout.',
     },
     {
-      id: 'content5-n',
+      id: 'content5-q',
       sectionClass: 'content5 cid-sad19y0EkS',
-      heading: 'Senior Software Engineer | Summit Group Solutions | Apr 2016 – Sep 2016',
+      heading: 'Senior Software Engineer | Hostwinds | Nov 2024 - Oct 2025',
       body:
-        'Software developer for an important car rentals company, using a mix of technologies like PHP and Postgres, running and making extensive use of Amazon web services. Was the first to introduce unit testing in legacy application, SCRUM best practices.',
+        'Designed and built RESTful APIs with PHP, Symfony, and Doctrine to replace legacy backend services, supporting billing, customer management, and infrastructure provisioning at scale. Integrated third-party APIs including OpenStack, NetBox, and multiple payment gateways spanning credit card processing, cryptocurrency, Braintree, and Alipay, handling fraud, disputes, and chargebacks across that surface. Built asynchronous provisioning workflows with real-time status monitoring for complex infrastructure operations. Introduced Scrum to the backend team, establishing sprint planning, retrospectives, story-point practices, and clear definitions of ready/done, improving delivery cadence and onboarding time. Implemented mandatory peer code review for all pull requests. Led optimization and execution of bulk migration scripts moving millions of legacy records across billing, infrastructure, and user data. Collaborated across time zones with an onsite lead and offsite senior engineer to align backend architecture with business needs, and modernized database usage with MariaDB and MongoDB for transactional and unstructured data.',
     },
     {
-      id: 'content5-o',
+      id: 'content5-u',
       sectionClass: 'content5 cid-sad1aiy0CQ',
-      heading: 'Software engineering associate manager | Accenture | Aug 2015 – Apr 2016',
+      heading: 'Senior Software Engineer | iSpot.tv | Feb 2022 - May 2024',
       body:
-        'Development lead for a front-end project with AngularJS for an important telecommunications company. Gathering and understanding requirements from business analysts, transmit that knowledge to offshore teams, find gaps in what the business is requiring and what is technically possible, writing high level technical documentation about the solutions provided. The only front-end developer that was able to take part in the development of back-end services with the integration team, for the successful communication between the user interface and the core ERP services.',
+        'Engineered backend services in PHP (Symfony, Doctrine), Node.js, and Python, improving reliability and performance across core systems. Designed RESTful APIs and database integrations for single-page front-end applications, with optimized MySQL and Snowflake schemas, and integrated Snowflake as a primary data source to improve query execution and data retrieval efficiency. Implemented email delivery workflows with Amazon SES for client campaign analytics reporting. Established monitoring and alerting with Splunk and Datadog, reducing outages and accelerating incident resolution. Advanced process automation through CI/CD pipelines with Jenkins and CircleCI, and implemented Docker-based deployments on AWS ECS/ECR, laying groundwork for EKS adoption. Led Agile Scrum ceremonies across backend, frontend, infrastructure, and PM teams, and championed testing and code review standards, earning company-wide recognition for delivering a critical feature on time and defect-free.',
+    },
+    {
+      id: 'content5-s',
+      sectionClass: 'content5 cid-sad0mgp31l',
+      heading: 'Principal Software Engineer | American Family Insurance | Jan 2021 - Feb 2022',
+      body:
+        'Directed backend service development in Java/Spring Boot as the primary backend stack, alongside Node.js, improving processing times and system efficiency. Led creation of a new event platform using AWS Kinesis Data Streams, Lambda, and Kinesis Analytics, transforming events into Parquet files in S3 to build a data lake queried through AWS Athena. Managed modernization projects transitioning legacy systems to updated architectures, including rewriting a vendor-maintained legacy application into a modern, homegrown application deployed to production in under three months. Designed and implemented an OAuth flow using AWS IAM and JWT to strengthen authentication. Proposed architectural solutions for existing and new applications and established development standards that improved code quality and consistency. Mentored junior developers and worked closely with technical program managers to clarify requirements and remove delivery blockers.',
+    },
+    {
+      id: 'content5-t',
+      sectionClass: 'content5 cid-sad19y0EkS',
+      heading: 'Software Development Engineer | Carrentals.com Inc, Expedia Group Company | Sept 2016 - Dec 2020',
+      body:
+        'Created solutions for the heart of the car rental system using Java/Spring Boot as the primary backend stack, alongside PHP and JavaScript, and served as the go-to person for business and technical knowledge, setting the bar for code quality and best practices while mentoring less experienced developers. Leveraged and innovated with the AWS ecosystem across Postgres and MySQL. Transformed legacy applications into cloud-hosted microservices, scaling the platform to handle 10x the traffic. Owned credit card payment processing end-to-end and built the team\'s process for handling fraud, disputes, and chargebacks. Migrated millions of records from an external marketing database into ours, saving the company several thousand dollars on 3rd party contracts. Led development and quality assurance for a car availability and price-change feature at time of booking, increasing conversion rate and customer satisfaction. Refactored the legacy payment application onto modern language features, best practices, and test automation without breaking backwards compatibility, keeping European payment processing running throughout. Led the team through a transition period, coaching on team forming/norming and expectations, and led the team to genuine self-organization under Scrum, presenting that experience as a talk at an Expedia Group global event.',
     },
   ] satisfies ResumeExperience[],
   experienceLinkText: 'Rest of my professional experience listed in',
@@ -98,14 +112,14 @@ export const resumeData = {
       sectionClass: 'content5 cid-sad7T7q35J',
       title: 'Technologies and frameworks',
       description:
-        'PHP, Java, Javascript, NodeJS, Apache, Nginx, Postgres, Mysql, GIT, AWS (EC2, S3, RDS, SES, SQS, SNS, Elastic Beanstalk, Kinesis Streams, Elasticache, API Gateway, Lambda functions, IAM, cloud formation), PHPUnit, Junit, Mockito, Laravel, Springboot, Doctrine, Docker, RESTful, SOAP, AngularJS, LESS, Jasmine, Mocha, Chai, Jenkins, Bower, Yeoman, Karma, Protractor, Grunt, Gulp, ZF1, ZF2, Percona, MongoDB, Elasticsearch, jQuery, ExpressJS, PHP Slim, Terraform, serverless, emberJs, handlebars, spinnaker',
+        'Java (Spring Framework, Spring Boot), PHP (Symfony, Doctrine), Node.js, Python, JavaScript, GIT, AWS (EC2, S3, RDS, SES, SQS, SNS, Elastic Beanstalk, Kinesis, ElastiCache, API Gateway, Lambda, IAM, ECS, ECR, Athena, CloudWatch), Kubernetes, Docker, Ansible, Terraform, MySQL, PostgreSQL, MariaDB, MongoDB, Redis, Snowflake, Percona, RESTful APIs, SOAP, OAuth/JWT, JUnit, Mockito, PHPUnit, Jenkins, CircleCI, GitLab CI/CD, Spinnaker, Splunk, Datadog, New Relic, AppDynamics, Uptime Kuma, CrowdSec, Wazuh, Authelia, Authentik, Claude Code and other AI coding agents, custom MCP integrations',
     },
     {
       id: 'content5-14',
       sectionClass: 'content5 cid-sad82AQpac',
       title: 'Methodologies and best practices',
       description:
-        'Agile (SCRUM, Kanban), SOLID, Design patterns, CI/CD, convergent design, PSP, peer review, pair programming, code dojos. team forming and norming.',
+        'Agile (Scrum, Kanban), Test-Driven Development, SOLID, Design patterns, CI/CD, convergent design, peer review, pair programming, mentoring and technical team development, security architecture and hardening, PCI DSS and GDPR-aware development, technology roadmap ownership.',
     },
     {
       id: 'content5-15',
@@ -165,6 +179,24 @@ export const resumeData = {
     },
   ] satisfies ResumeTalk[],
   featuredClients: [
+    {
+      title: 'Hostwinds',
+      description: 'Web hosting and cloud infrastructure provider — built billing, provisioning, and customer-management APIs at scale.',
+      href: 'https://www.hostwinds.com/',
+      image: '/legacy/images/hostwinds-logo.svg',
+    },
+    {
+      title: 'iSpot.tv',
+      description: 'TV ad measurement and analytics platform — built backend services and data pipelines for advertising analytics.',
+      href: 'https://www.ispot.tv/',
+      image: '/legacy/images/ispot-tv-logo.svg',
+    },
+    {
+      title: 'American Family Insurance',
+      description: 'Insurance and financial services — led the event platform and data lake powering real-time analytics.',
+      href: 'https://www.amfam.com/',
+      image: '/legacy/images/american-family-insurance-logo.svg',
+    },
     {
       title: 'Carrentals.com',
       description: 'All the cars in the world! Rent a car anywhere in the world, at the cheapest price.',
@@ -274,7 +306,7 @@ export const resumeData = {
         'Course focusing on keeping usable products for customers while keeping measures for information security',
     },
     {
-      title: 'Criptography I course | 2012 | Standford University',
+      title: 'Cryptography I course | 2012 | Stanford University',
       details:
         'Course given by Dan Boneh, teaching the theoretical principles behind cryptography and practical applications.',
     },
