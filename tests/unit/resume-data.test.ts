@@ -31,10 +31,15 @@ describe('resume data', () => {
   it('positions Java and Spring Boot as a primary backend stack', () => {
     expect(resumeData.skills[0]?.description).toMatch(/^Java \(Spring Framework, Spring Boot\)/)
 
-    const americanFamily = resumeData.experience.find((experience) => experience.heading.includes('American Family'))
-    const carrentals = resumeData.experience.find((experience) => experience.heading.includes('Carrentals.com'))
+    const americanFamily = resumeData.experience.find((experience) => experience.id === 'content5-s')
+    const carrentals = resumeData.experience.find((experience) => experience.id === 'content5-t')
 
     expect(americanFamily?.body).toContain('Java/Spring Boot as the primary backend stack')
     expect(carrentals?.body).toContain('Java/Spring Boot as the primary backend stack')
+  })
+
+  it('keeps the profile summary focused on engineering expertise', () => {
+    expect(resumeData.profile.summary).toContain('Deep expertise in Java, Node.js, Python, PHP')
+    expect(resumeData.profile.summary).not.toContain('CTO')
   })
 })

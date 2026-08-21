@@ -42,7 +42,7 @@ export const resumeData = {
     title: 'Angel Ibarra - Senior Software Engineer for hire',
     jobTitle: 'Senior Software Engineer & Technical Leader',
     summary:
-      'Senior software engineer and technical leader with 20+ years building scalable backend systems, cloud infrastructure, and data-driven applications across fintech, ad-tech, e-commerce, insurance, hosting, and SaaS. Deep expertise in PHP, Java, Node.js, Python, AWS, microservices, and security architecture, with recent hands-on leadership as CTO of a growing field-service company. Passionate about process improvement, mentorship, and building reliable systems that serve real needs.',
+      'Senior software engineer and technical leader with 20+ years building scalable backend systems, cloud infrastructure, and data-driven applications across fintech, ad-tech, e-commerce, insurance, hosting, and SaaS. Deep expertise in Java, Node.js, Python, PHP, AWS, microservices, and security architecture. Passionate about process improvement, mentorship, and building reliable systems that serve real needs.',
     heroBackground: '/legacy/images/mbr-1920x1246.jpg',
     linkedinUrl: 'https://www.linkedin.com/in/miguelibarra1/?locale=en_US',
     email: 'ibarra.dev@v25.mozmail.com',
