@@ -27,4 +27,14 @@ describe('resume data', () => {
       expect(staticSectionIds).not.toContain(experience.id)
     }
   })
+
+  it('positions Java and Spring Boot as a primary backend stack', () => {
+    expect(resumeData.skills[0]?.description).toMatch(/^Java \(Spring Framework, Spring Boot\)/)
+
+    const americanFamily = resumeData.experience.find((experience) => experience.heading.includes('American Family'))
+    const carrentals = resumeData.experience.find((experience) => experience.heading.includes('Carrentals.com'))
+
+    expect(americanFamily?.body).toContain('Java/Spring Boot as the primary backend stack')
+    expect(carrentals?.body).toContain('Java/Spring Boot as the primary backend stack')
+  })
 })
