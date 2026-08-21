@@ -5739,6 +5739,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fflate@npm:0.7.3":
+  version: 0.7.3
+  resolution: "fflate@npm:0.7.3"
+  checksum: 10c0/d116debcc828ca8860f78753e9472c3e0f14bc52cd2aab8bbcb01fd86577147993127317b8271d5f6eaaa821680e21adfa1e163211863300abfed6e006fc1d95
+  languageName: node
+  linkType: hard
+
 "fflate@npm:^0.7.3":
   version: 0.7.4
   resolution: "fflate@npm:0.7.4"
@@ -6044,6 +6051,13 @@ __metadata:
   bin:
     h3: bin/h3.mjs
   checksum: 10c0/92c587ee1b47f2c22ffb64bf4d57ff4b719f425e7e1bf48cdcb242f7ed8eea410ec90c49cc1189992f6fef1732a0546b3bec624873722804cb9af7b6ce1c63d8
+  languageName: node
+  linkType: hard
+
+"harfbuzzjs@npm:0.10.0":
+  version: 0.10.0
+  resolution: "harfbuzzjs@npm:0.10.0"
+  checksum: 10c0/acc0cdcadb76de6ebe127468a30e7b9926edd9582fc1f0e966b0bbf955d9c5bb756de0d801344105da9d78357a86789ea3467d0ae2c37a075aef41c445a847a3
   languageName: node
   linkType: hard
 
@@ -9140,7 +9154,7 @@ __metadata:
     "@resvg/resvg-js": "npm:^2.6.2"
     "@types/node": "npm:^25.9.2"
     nuxt: "npm:4.5.0"
-    satori: "npm:^0.29.0"
+    satori: "npm:^0.33.0"
     serve: "npm:^14.2.6"
     typescript: "npm:^7.0.0"
     vitest: "npm:^4.1.8"
@@ -9200,9 +9214,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"satori@npm:^0.29.0":
-  version: 0.29.0
-  resolution: "satori@npm:0.29.0"
+"satori@npm:^0.33.0":
+  version: 0.33.0
+  resolution: "satori@npm:0.33.0"
   dependencies:
     "@shuding/opentype.js": "npm:1.4.0-beta.0"
     css-background-parser: "npm:^0.1.0"
@@ -9211,11 +9225,13 @@ __metadata:
     css-to-react-native: "npm:^3.0.0"
     emoji-regex-xs: "npm:^2.0.1"
     escape-html: "npm:^1.0.3"
+    fflate: "npm:0.7.3"
+    harfbuzzjs: "npm:0.10.0"
     linebreak: "npm:^1.1.0"
     parse-css-color: "npm:^0.2.1"
     postcss-value-parser: "npm:^4.2.0"
     yoga-layout: "npm:^3.2.1"
-  checksum: 10c0/78b228115b4a75eb1a59a66948d3699a91918e6288ab07783f67ad0a510539659600b23ceefa58a32319130f5a5ef642dd69b90ed45547bc2cc8a77af839a059
+  checksum: 10c0/8647424200405e5f5ebc3326cbab6b1b70c32764354a2771429ef33bc940c8f6c33d2eebc49c0832e95148963cc889dad0484da6ef0a9f68b60ee6d5e393afde
   languageName: node
   linkType: hard
 
