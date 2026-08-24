@@ -8657,7 +8657,7 @@ __metadata:
     "@types/node": "npm:^26.1.2"
     nuxt: "npm:4.5.2"
     rolldown: "npm:~1.2.1"
-    satori: "npm:^0.33.0"
+    satori: "npm:^0.33.1"
     serve: "npm:^14.2.6"
     typescript: "npm:^7.0.0"
     vitest: "npm:^4.1.8"
@@ -8710,9 +8710,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"satori@npm:^0.33.0":
-  version: 0.33.0
-  resolution: "satori@npm:0.33.0"
+"satori@npm:^0.33.1":
+  version: 0.33.1
+  resolution: "satori@npm:0.33.1"
   dependencies:
     "@shuding/opentype.js": "npm:1.4.0-beta.0"
     css-background-parser: "npm:^0.1.0"
@@ -8727,7 +8727,7 @@ __metadata:
     parse-css-color: "npm:^0.2.1"
     postcss-value-parser: "npm:^4.2.0"
     yoga-layout: "npm:^3.2.1"
-  checksum: 10c0/8647424200405e5f5ebc3326cbab6b1b70c32764354a2771429ef33bc940c8f6c33d2eebc49c0832e95148963cc889dad0484da6ef0a9f68b60ee6d5e393afde
+  checksum: 10c0/5f6590431d30225c05460c7c101295d3d5bfce09d22cfe4d9cfa3da61aa886918c1f4a6c05524a30c3ce0e0ea64c7cf98dba08ec4a8e34a652499d0e1962e3c5
   languageName: node
   linkType: hard
 
