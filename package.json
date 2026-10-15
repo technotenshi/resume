@@ -23,7 +23,7 @@
     "satori": "^0.33.0",
     "serve": "^14.2.6",
     "typescript": "^7.0.0",
-    "vitest": "^4.1.8",
+    "vitest": "^5.0.0",
     "vue-tsc": "^3.3.4",
     "yoga-wasm-web": "^0.3.3"
   },
