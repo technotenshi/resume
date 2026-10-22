@@ -2,5 +2,14 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "timezone": "America/Los_Angeles",
+  "packageRules": [
+    {
+      "description": "One weekly PR for all minor and patch updates (all managers: npm, GitHub Actions, Docker). Major updates stay separate. Vulnerability alert PRs ignore this schedule.",
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "all non-major dependencies",
+      "schedule": ["before 6am on monday"]
+    }
   ]
 }

@@ -37,3 +37,17 @@ patched 1.8.2, and the newest `serve` release keeps the exact pin, so upgrading
 `~1.8.2`) makes the tree resolve a single patched `compression`. Only the
 preview server and the Playwright e2e run consume it. Remove the override once
 `serve` ships a release that depends on a patched `compression`. Issue #204.
+
+## 2026-10-21 Group Renovate minor and patch updates into one weekly PR
+
+Fifteen Renovate PRs opened at once, each with its own `yarn.lock` change and
+conflicts. `renovate.json` now has one `packageRules` entry that matches
+`minor` and `patch` updates for every manager (npm, GitHub Actions, Docker)
+under the group name `all non-major dependencies`, scheduled
+`before 6am on monday` in `America/Los_Angeles`. Major updates are not grouped
+and stay separate PRs. Vulnerability alert PRs: the Renovate docs state that
+`schedule` is always ignored for them, so the weekly schedule cannot delay a
+security fix. The docs default `vulnerabilityAlerts.groupName` to null, but do
+not state how that ranks against a `packageRules` group, so check the first
+security PR after this lands and exempt alerts explicitly if one is grouped.
+No automerge. Issue #203.
