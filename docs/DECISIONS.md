@@ -28,3 +28,12 @@ bump produced two PRs and a pile of duplicates and superseded branches.
 Renovate now owns version updates. Dependabot version updates are turned off
 with `open-pull-requests-limit: 0`. Dependabot security updates and alerts are
 not subject to that limit and continue.
+
+## 2026-10-21 Override compression to 1.8.2 or newer (Dependabot alert #288)
+
+`serve` 14.2.6 requests `compression` at exactly 1.8.1, which is below the
+patched 1.8.2, and the newest `serve` release keeps the exact pin, so upgrading
+`serve` does not help. A `resolutions` entry in `package.json` (`compression`:
+`~1.8.2`) makes the tree resolve a single patched `compression`. Only the
+preview server and the Playwright e2e run consume it. Remove the override once
+`serve` ships a release that depends on a patched `compression`. Issue #204.
