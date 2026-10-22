@@ -19,3 +19,12 @@ TypeScript 7, but `yarn typecheck` does not block deployment — the CI step is
 now an explicit skip with a descriptive message rather than a silently failing
 `continue-on-error` step. TypeScript is upgraded to `^7.0.0`; the typecheck
 step will be restored once vue-tsc ships TypeScript 7 support.
+
+## 2026-10-21 Renovate owns version updates; Dependabot is security only
+
+Both Renovate (`renovate.json`) and Dependabot version updates
+(`.github/dependabot.yml`, weekly npm) watched the same `package.json`, so every
+bump produced two PRs and a pile of duplicates and superseded branches.
+Renovate now owns version updates. Dependabot version updates are turned off
+with `open-pull-requests-limit: 0`. Dependabot security updates and alerts are
+not subject to that limit and continue.
