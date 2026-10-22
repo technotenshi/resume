@@ -31,6 +31,6 @@
   "resolutions": {
     "compression": "~1.8.2",
     "minimatch": "^10.0.0",
-    "nuxt-og-image": "^6.5.1"
+    "nuxt-og-image": "^7.0.0"
   }
 }
