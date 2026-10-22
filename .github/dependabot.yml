@@ -9,3 +9,7 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+    # Renovate owns version updates (see renovate.json). A limit of 0 turns off
+    # Dependabot version update PRs; Dependabot security updates are not subject
+    # to this limit and keep working.
+    open-pull-requests-limit: 0
