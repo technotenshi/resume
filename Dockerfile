@@ -1,4 +1,4 @@
-FROM node:24-bookworm
+FROM node:26-bookworm
 
 ARG NPM_VERSION=11.11.0
 
