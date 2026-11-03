@@ -38,4 +38,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN npm install -g npm@${NPM_VERSION} \
   && npm --version
 
+# Node 25+ images no longer bundle Corepack (or yarn); install it so `yarn`
+# resolves to the version pinned by `packageManager` in package.json.
+RUN npm install -g corepack \
+  && corepack enable \
+  && corepack --version
+
 WORKDIR /opt/app
